@@ -21,7 +21,7 @@ class User extends Model {
     public function find(int $userId):array
     {
         $stmt = $this->db->prepare(
-            'Select id, name, email
+            'Select *
             from users where id = ?'
         );
 
