@@ -34,6 +34,7 @@ class PostController implements SafeRoute
             'user_id' => getUserId(),
             'title' => trim($_POST['title']),
             'body' => trim($_POST['body']),
+            'imageUrl'=> trim($_POST['imageUrl'])
         ];
         $this->postModel->submitPost($data);
     }

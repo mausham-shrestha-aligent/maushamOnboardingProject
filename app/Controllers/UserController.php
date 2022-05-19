@@ -31,6 +31,7 @@ class UserController extends Model
                 'email' => trim($_POST['email']),
                 'password' => trim($_POST['password']),
                 'confirm_password' => trim($_POST['confirm_password']),
+                'userProfilePic'=>trim($_POST['userProfilePic']),
                 'name_error' => '',
                 'email_error' => '',
                 'password_error' => '',
@@ -65,7 +66,7 @@ class UserController extends Model
                     $this->db->beginTransaction();
 
 
-                    $userId = $this->userModel->create($data['name'], $data['email'], $data['password']);
+                    $userId = $this->userModel->create($data['name'], $data['email'], $data['password'],$data['userProfilePic']);
                     $user = $this->userModel->find($userId);
 
                     $this->startUserSession($user);

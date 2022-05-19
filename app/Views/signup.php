@@ -48,6 +48,15 @@
                                                     password</label>
                                             </div>
                                         </div>
+<!--                                        Need to move this part in Account section  -->
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="password" id="form3Example4c" class="form-control"
+                                                       name="userProfilePic"/>
+                                                <label class="form-label" for="form3Example4c">Profile Pic URL</label>
+                                            </div>
+                                        </div>
 
                                         <div class="form-check d-flex justify-content-center mb-5">
                                             <input class="form-check-input me-2" type="checkbox" value=""

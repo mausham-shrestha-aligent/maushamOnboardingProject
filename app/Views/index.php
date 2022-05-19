@@ -28,6 +28,9 @@ $postModel = new \App\Models\Post();
                         <div class="d-flex flex-column justify-content-start ml-2"><span
                                     class="d-block font-weight-bold name"><?= $post['name'] ?></span><span
                                     class="date text-black-50">Shared <?= $post['postCreated'] ?> </span></div>
+                        <div>
+                            <img src="<?= $post['imageUrl']?>">
+                        </div>
                         <div class="mt-2">
                             <p class="comment-text"><?= $post['body'] ?></p>
                         </div>
@@ -35,14 +38,20 @@ $postModel = new \App\Models\Post();
                     <div class="bg-white">
                         <div class="d-flex flex-row fs-12">
                             <?php $id = strval($post['id']) ?>
-                            <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span>
+                            <div class="like p-2 cursor"><button class="btn btn-primary pull-right"><i class="fa fa-thumbs-o-up"></i><span class="ml-1"> Like</span></button>
                             </div>
                             <div class="like p-2 cursor">
-                                <button onclick="showCommentSection(<?= $id ?>)"
-                                "><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></button></div>
+                                <button onclick="showCommentSection(<?= $id ?>)" class="btn btn-primary pull-right"><i class="fa fa-commenting-o"></i><span class="ml-1"> Comment</span></button></div>
                         </div>
                         <?php foreach ($postModel->getCommentPosts($post['postId']) as $comment): ?>
-                            <p><i><?php echo '****     ' . $comment['comment']; ?></i></p>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <img class="rounded-circle" src="<?php echo $comment['userProfilePic'] ?>" width="40">
+                                    <p><i><?php echo  $comment['comment']; ?></i></p>
+                                </div>
+                            </div>
+
                         <?php endforeach; ?>
                     </div>
                     <form method="post" action="/comments">

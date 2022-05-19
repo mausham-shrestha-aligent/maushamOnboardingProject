@@ -8,12 +8,12 @@ class User extends Model {
     const ACCESS_LEVEL_READ_ONLY = 2;
     const ACCESS_LEVEL_NORMAL = 3;
 
-    public function create(string $name, string $email, string $password) : int {
+    public function create(string $name, string $email, string $password, string $userProfilePic) : int {
         $stmt = $this->db->prepare(
-            'Insert into users(name, email, password) Values (?, ? ,?)'
+            'Insert into users(name, email, password,userProfilePic) Values (?, ? ,?, ?)'
         );
 
-        $stmt->execute([$name, $email, $password]);
+        $stmt->execute([$name, $email, $password, $userProfilePic]);
 
         return  (int) $this->db->lastInsertId();
     }

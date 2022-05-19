@@ -26,10 +26,10 @@ class Post extends Model {
     public function submitPost(array $data)
     {
         $stmt = $this->db->prepare(
-            'Insert into posts(user_id, title, body) values (?, ?, ?)'
+            'Insert into posts(user_id, title, body,imageUrl) values (?, ?, ?,?)'
         );
 
-        $stmt->execute([$data['user_id'], $data['title'], $data['body']]);
+        $stmt->execute([$data['user_id'], $data['title'], $data['body'], $data['imageUrl']]);
 
         header('location:'. 'http://localhost:8000/posts');
     }
@@ -95,12 +95,11 @@ class Post extends Model {
     public function getCommentPosts($postId)
     {
         $stmt = $this->db->prepare(
-            'Select * from comments where post_id = ?'
+            'Select * from comments inner join users on users.id = comments.user_id where post_id = ?'
         );
 
         $stmt->execute([$postId]);
         $results = $stmt->fetchAll();
-
         return $results = is_bool($results) ? [] : $results;
     }
 
