@@ -23,7 +23,7 @@ services:
     container_name: mysqlContainer
     image: mysql:8.0
     volumes:
-      - ../:/var/www
+
       - ./storage/mysql:/var/lib/mysql
     restart: always
     environment:
