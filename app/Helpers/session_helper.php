@@ -1,5 +1,5 @@
 <?php
-
+$_SESSION['user'] = null;
 session_start();
 
 function isLoggedIn()
@@ -9,7 +9,11 @@ function isLoggedIn()
 
 function getUserId()
 {
+    if($_SESSION['user'] != null) {
     return $_SESSION['user']['id'];
+}
+    return false;
+
 }
 
 function getUserEmail()

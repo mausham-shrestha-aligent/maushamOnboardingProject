@@ -10,9 +10,14 @@ namespace App\Config {
     class App
     {
         private static DB $db;
+        private array $request;
 
-        public function __construct(protected Router $router, protected array $request, protected Config $config)
+        public function __construct(protected Router $router, protected Config $config)
         {
+            $this->request = [
+                'uri' => $_SERVER['REQUEST_URI'],
+                'method' => $_SERVER['REQUEST_METHOD']
+            ];
             static::$db = new DB($config->db ?? []);
         }
 
