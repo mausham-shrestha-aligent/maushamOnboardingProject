@@ -38,8 +38,6 @@ class UserController extends Model
 
                 $userId = $this->userModel->create($data['name'], $data['email'], $data['password'], $data['userProfilePic']);
                 $user = $this->userModel->find($userId);
-                var_dump($user);
-
                 $this->startUserSession($user);
 
                 $this->db->commit();
@@ -77,7 +75,6 @@ class UserController extends Model
     public function startUserSession($user)
     {
         $_SESSION['user'] = $user;
-        header('location: ' . 'http://localhost:8000/posts');
     }
 
     public function logout()

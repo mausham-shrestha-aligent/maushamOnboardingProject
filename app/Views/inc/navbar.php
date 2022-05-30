@@ -4,9 +4,9 @@
             <a class="nav-link text-white" href="/">Home</a>
             <a class="nav-link text-white" href="/login">Login</a>
             <a class="nav-link text-white" href="/register">Register</a>
-            <a class="nav-link text-white" href="/posts">Feeds</a>
         <?php else : ?>
-
+            <a class="nav-link text-white" href="/">Home</a>
+            <a class="nav-link text-white" href="/posts">Feeds</a>
             <a class="nav-link" href="/logout">Log Out</a>
         <?php endif; ?>
     </div>

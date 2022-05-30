@@ -1,5 +1,5 @@
 <?php
-$_SESSION['user'] = null;
+$_SESSION= null;
 session_start();
 
 function isLoggedIn()
@@ -9,9 +9,12 @@ function isLoggedIn()
 
 function getUserId()
 {
-    if($_SESSION['user'] != null) {
-    return $_SESSION['user']['id'];
-}
+    if(sizeof($_SESSION)>0) {
+        if($_SESSION['user'] != null) {
+            return $_SESSION['user']['id'];
+        }
+    }
+
     return false;
 
 }
