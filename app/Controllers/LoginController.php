@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\Pure;
 
 class LoginController
 {
-    #[Pure] public function login() : View {
+    public function login() : View {
         return View::make('login');
     }
 }
