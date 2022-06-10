@@ -70,5 +70,8 @@ class PostController implements SafeRoute
         $comment = $_REQUEST['comment'];
         $this->postModel->commentPost([$comment, $userId, $postId]);
     }
+    public function getSinglePosts() {
+        return View::make('posts/singlePost');
+    }
 
 }

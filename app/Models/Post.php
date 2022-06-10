@@ -91,6 +91,14 @@ class Post extends Model {
 
         header('location: '.'http://localhost:8000/');
     }
+    public function getSinglePosts($postId) {
+        $stmt = $this->db->prepare(
+            'select * from posts inner join users on users.id = posts.user_id where posts.id = ?'
+        );
+        $stmt->execute([$postId]);
+        return $stmt->fetch();
+    }
+
 
     public function getCommentPosts($postId)
     {

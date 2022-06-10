@@ -18,8 +18,9 @@ class RouterConfiguration
         ['/posts', [PostController::class, 'showPost']],
         ['/posts/add', [PostController::class, 'addPost']],
         ['/posts/edit', [PostController::class, 'editPost']],
-        ['/logout', [UserController::class, 'logout']
-        ]],
+        ['/logout', [UserController::class, 'logout'],
+        ],
+        ['/singlepost', [PostController::class, 'getSinglePosts']]],
         [
             ['/posts/submit', [PostController::class, 'submitPost']],
             ['/posts/update', [PostController::class, 'updatePost']],

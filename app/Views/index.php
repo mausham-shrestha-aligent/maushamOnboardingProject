@@ -18,96 +18,98 @@ $postModel = new \App\Models\Post();
 </div>
 
 
-<?php foreach ($this->params as $post): ?>
-    <div class="container mt-5">
-        <div class="d-flex justify-content-left row">
-            <div class="col-md-8">
-                <div class="d-flex flex-column comment-section">
-                    <div class="bg-white p-2">
-                        <div class="d-flex flex-column justify-content-start ml-2"><span
-                                    class="d-block font-weight-bold name"><?= $post['name'] ?></span><span
-                                    class="date text-black-50">Shared <?= $post['postCreated'] ?> </span></div>
-                        <div>
-                            <img width="700px" height="350px" src="<?= $post['imageUrl'] ?>">
-                        </div>
-                        <div class="mt-2">
-                            <p class="comment-text"><?= $post['body'] ?></p>
-                        </div>
+<main class="container">
+    <div class="row mb-2">
+        <?php foreach ($this->params as $post): ?>
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary"><?= $post['name'] ?></strong>
+                        <div class="mb-1 text-muted"><?= $post['postCreated'] ?></div>
+                        <h6 class="mb-0"><?= $post['title'] ?></h6>
+                        <hr>
+                        <p class="card-text mb-center">This is a wider card with supporting text below as a natural
+                            lead-in to additional content.</p>
+                        <a href="#" class="stretched-link">Continue reading</a>
                     </div>
-                    <div class="bg-white">
-                        <div class="d-flex flex-row fs-12">
-                            <?php $id = strval($post['id']) ?>
-                            <div class="like p-2 cursor">
-                                <button class="btn btn-primary pull-right"><i class="fa fa-thumbs-o-up"></i><span
-                                            class="ml-1"> Like</span></button>
-                            </div>
-                            <div class="like p-2 cursor">
-                                <button onclick="showCommentSection(<?= $id ?>)" class="btn btn-primary pull-right"><i
-                                            class="fa fa-commenting-o"></i><span class="ml-1"> Comment</span></button>
-                            </div>
-                        </div>
-                        <form method="post" action="/comments">
-                            <div class="bg-light p-2" style="display: none" id="<?= $post['id'] ?>">
-                                <input type="hidden" name="postId" value="<?= $post['postId'] ?>">
-                                <div class="d-flex flex-row align-items-start"><textarea
-                                            class="form-control ml-1 shadow-none textarea" name="comment"></textarea>
-                                </div>
-                                <div class="mt-2 text-right">
-                                    <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment
-                                    </button>
-                                    <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button"
-                                            onclick="cancelCommentSection(<?= $id ?>)">Cancel
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <section class="gradient-custom">
-                            <div class="container my-5 py-5">
-                                <div class="row d-flex justify-content-right">
-                                    <div class="col-md-12 col-lg-10 col-xl-8">
-                                        <div class="card">
-                                            <div class="card-body p-4">
-                                                <div class="row">
-                                                    <?php foreach ($postModel->getCommentPosts($post['postId']) as $comment): ?>
-                                                    <div class="col">
-                                                        <div class="d-flex flex-start">
-                                                            <img class="rounded-circle shadow-1-strong me-3"
-                                                                 src="  <?php echo $comment['userProfilePic'] ?>"
-                                                                 alt="avatar"
-                                                                 width="65"
-                                                                 height="65"/>
-                                                            <div class="flex-grow-1 flex-shrink-1">
-                                                                <div>
-                                                                    <div class="d-flex justify-content-between align-items-center">
-                                                                        <strong>
-                                                                            <p class="mb-1"><?php echo $comment['name'] ?></p>
-                                                                        </strong>
-                                                                    </div>
-                                                                    <p class="small mb-0">
-                                                                        <?php echo $comment['comment']; ?>
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <img class="bd-placeholder-img" width="200" height="250" src="<?= $post['imageUrl'] ?>"
+                             role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                             focusable="false"/>
 
-                                                        <?php endforeach; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </section>
                     </div>
                 </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
+    <div class="row g-5">
+        <div class="col-md-8">
+            <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                About this blog website
+            </h3>
 
+            <article class="blog-post">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Type of User</th>
+                        <th>Their capabilities</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Admin</td>
+                        <td>
+                            Can Delete every posts<br>
+                            Can Reset Password for all users accounts<br>
+                            Can Assign users as admin
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Logged In users</td>
+                        <td>
+                            Can Delete their own posts<br>
+                            Can Edit their own posts <br>
+                            Can Post, Comment
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Guest Users</td>
+                        <td>
+                            Can create their account<br>
+                            Can See the posts
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </article>
+
+            <article class="blog-post">
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="position-sticky" style="top: 2rem;">
+
+                <div class="p-4">
+                    <h4>Find us on</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ol>
+                </div>
+                <div class="p-4 mb-3 bg-light rounded">
+                    <h4 class="fst-italic">About</h4>
+                    <p class="mb-0">This is a blog website created by Mausham Shrestha as a part of his onboarding
+                        project</p>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-<?php endforeach; ?>
 
+</main>
 
 
 <?php require_once ROOT_PATH . '/../app/Views/inc/footer.php'; ?>

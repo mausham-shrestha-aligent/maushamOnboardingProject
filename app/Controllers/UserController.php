@@ -67,6 +67,7 @@ class UserController extends Model
 
                 if (!empty($userFetched)) {
                     $this->startUserSession($userFetched);
+                    header('location: '.'http://localhost:8000/posts');
                 }
             }
         }
