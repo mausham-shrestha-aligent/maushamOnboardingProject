@@ -9,54 +9,45 @@
 
     <?php endif; ?>
 
-    <div class="row">
-        <div class="col-md-6">
-            <h1>Posts</h1>
-        </div>
-        <div>
-            <a href="/posts/add" class="btn btn-primary pull-right">Add Posts</a>
-        </div>
-    </div>
     <div class="container">
         <?= getSessionMsg() ?? '' ?>
-        <div class="row">
-            <?php foreach ($this->params as $post): ?>
-                <div class="d-flex justify-content-center row">
-                    <div class="col-md-8">
-                        <div class="d-flex flex-column comment-section">
-                            <div class="bg-white p-2">
-                                <div class="d-flex flex-column justify-content-start ml-2"><span
-                                            class="d-block font-weight-bold name"><?= $post['title'] ?></span><span
-                                            class="date text-black-50"><?= $post['postCreated'] ?></span></div>
-                            </div>
-                            <div class="mt-2">
-                                <p class="comment-text"><?= $post['body'] ?></p>
-                            </div>
-                        </div>
-                        <?php if (getUserId() == $post['id'] || isAdmin()): ?>
-                            <div class="bg-light p-2">
-                                <form action="/posts/delete" method="POST">
-                                    <input type="hidden" name="post" value=<?= $post['postId'] ?>>
 
-                                    <div class="mt-2 text-right">
-                                        <button class="btn btn-outline-danger btn-sm ml-1 shadow-none" type="submit">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </form>
-                                <div class="mt-2 text-left">
-                                    <a class="btn btn-primary btn-sm shadow-none"
-                                       href="/posts/edit?<?= $post['postId'] ?>">Edit</a>
+
+        <div style="position: relative;bottom: 0;right: 0;padding: 50px;" >
+            <a href="/posts/add" class="btn btn-round btn-info" style="height: 100px;width: 100px"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        </div>
+                <div class="container blog-page">
+                    <div class="row clearfix">
+                        <?php foreach ($this->params as $post): ?>
+                        <div class="col-lg-4 col-md-12" >
+                            <div class="card single_post">
+                                <div class="body">
+                                    <h3 class="m-t-0 m-b-5"><a><?= $post['title'] ?></a></h3>
+                                </div>
+                                <div class="body" style="margin: auto;align-content: center"">
+                                    <img style="width: 350px;height: 300px;" src="<?= $post['imageUrl'] ?>" alt="Awesome Image">
+                                    <?php if (getUserId() == $post['id'] || isAdmin()): ?>
+                                    <div>  <p><?= $post['body'] ?></p></div>
+                                        <form action="/posts/delete" method="POST">
+                                            <input type="hidden" name="post" value=<?= $post['postId'] ?>>
+                                                <button href="/singlepost?<?= $post['postId'] ?>" title="read more">Do More</button>
+                                                <button type="submit">
+                                                    Delete
+                                                </button>
+                                                <button
+                                                   href="/posts/edit?<?= $post['postId'] ?>">Edit</button>
+                                        </form>
+
+                                    <?php endif; ?>
                                 </div>
                             </div>
-
-                        <?php endif; ?>
+                        </div>
+                        <?php endforeach; ?>
                     </div>
-                    <hr>
                 </div>
-            <?php endforeach; ?>
+
+
         </div>
     </div>
-
 
     <?php require_once ROOT_PATH . '/../app/Views/inc/footer.php'; ?>

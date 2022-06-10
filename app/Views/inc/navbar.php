@@ -1,4 +1,4 @@
-<nav class="navbar site-header sticky-top py-1 bg-dark">
+<nav class="navbar site-header sticky-top py-1" style="background: #17a2b8">
     <div class="container d-flex flex-column flex-md-row justify-content-between text-white">
         <?php if (!getUserId()) : ?>
             <a class="nav-link text-white" href="/">Home</a>
