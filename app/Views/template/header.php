@@ -12,4 +12,4 @@
     <title>Blog Website</title>
 </head>
 <body>
-    <?php require_once ROOT_PATH . '/../app/Views/inc/navbar.php';?>
+    <?php require_once ROOT_PATH . '/../app/Views/template/navbar.php';?>

@@ -4,12 +4,15 @@ namespace App\Models;
 
 use App\Views\View;
 
-class Post extends Model {
-    public function create(): int {
+class Post extends Model
+{
+    public function create(): int
+    {
         return 0;
     }
 
-    public function getPosts() {
+    public function getPosts()
+    {
         $stmt = $this->db->prepare(
             'SELECT * , posts.id as postId, users.id as userId,
             posts.created_at as postCreated, users.created_at as userCreated
@@ -31,12 +34,12 @@ class Post extends Model {
 
         $stmt->execute([$data['user_id'], $data['title'], $data['body'], $data['imageUrl']]);
 
-        header('location:'. 'http://localhost:8000/posts');
+        header('location:' . 'http://localhost:8000/posts');
     }
 
     public function deletePost(int $postId)
     {
-        if($this->checkIfBeingHacked($postId)) {
+        if ($this->checkIfBeingHacked($postId)) {
             throw new \Exception('Cannot Delete post');
         }
 
@@ -64,7 +67,7 @@ class Post extends Model {
 
     public function updatePost($postId)
     {
-        if($this->checkIfBeingHacked($postId)) {
+        if ($this->checkIfBeingHacked($postId)) {
             throw new \Exception('Cannot update post');
         }
         $stmt = $this->db->prepare(
@@ -75,7 +78,7 @@ class Post extends Model {
 
         $_SESSION['session_msg'] = "The post has been updated";
 
-        header('location: '. 'http://localhost:8000/posts');
+        header('location: ' . 'http://localhost:8000/posts');
 
     }
 
@@ -89,11 +92,15 @@ class Post extends Model {
 
         $_SESSION['session_msg'] = "The comment has been posted";
 
-        header('location: '.'http://localhost:8000/');
+        header('location: ' . 'http://localhost:8000/');
     }
-    public function getSinglePosts($postId) {
+
+    public function getSinglePosts($postId)
+    {
         $stmt = $this->db->prepare(
-            'select * from posts inner join users on users.id = posts.user_id where posts.id = ?'
+            'select posts.id as postId, users.id as userId,
+       body, title, posts.created_at as postCreated,users.created_at as userCreated, imageUrl, userProfilePic, name
+from posts inner join users on posts.user_id = users.id where posts.id = ?'
         );
         $stmt->execute([$postId]);
         return $stmt->fetch();
@@ -120,7 +127,7 @@ class Post extends Model {
         $stmt = $this->db->prepare('SELECT user_id from posts where id=?');
         $stmt->execute([$postId]);
         $userId = $stmt->fetch()['user_id'];
-        if(!isAdmin() && $userId != getUserId()) {
+        if (!isAdmin() && $userId != getUserId()) {
             return true;
         } else {
             return false;

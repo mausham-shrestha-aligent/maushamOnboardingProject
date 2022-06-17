@@ -1,5 +1,5 @@
 <?php
-require_once ROOT_PATH . '/../app/Views/inc/header.php'; ?>
+require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
 <?php
 $postModel = new \App\Models\Post();
 ?>
@@ -92,7 +92,7 @@ $postModel = new \App\Models\Post();
         <div class="col-md-4">
             <div class="position-sticky" style="top: 2rem;">
                 <div class="p-4">
-                    <h4>Find us on</h4>
+                    <h4>Find me on</h4>
                     <ol class="list-unstyled">
                         <li><a href="#" style="color: black">GitHub</a></li>
                         <li><a href="#" style="color: black">Twitter</a></li>
@@ -111,6 +111,7 @@ $postModel = new \App\Models\Post();
 </main>
 
 
-<?php require_once ROOT_PATH . '/../app/Views/inc/footer.php'; ?>
+<?php require_once ROOT_PATH . '/../app/Views/template/footer.php'; ?>
+
 
 

@@ -1,5 +1,5 @@
 
-<?php require_once ROOT_PATH . '/../app/Views/inc/header.php'; ?>
+<?php require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
 <div>
     <h1>Edit Post Page</h1>
     <form action="/posts/update" method="post">
@@ -18,4 +18,4 @@
     </form>
 </div>
 
-<?php require_once ROOT_PATH . '/../app/Views/inc/footer.php'; ?>
+<?php require_once ROOT_PATH . '/../app/Views/template/footer.php'; ?>

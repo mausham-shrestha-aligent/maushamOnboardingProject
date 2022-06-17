@@ -1,4 +1,4 @@
-<?php require_once ROOT_PATH . '/../app/Views/inc/header.php'; ?>
+<?php require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
 <section class="vh-100" style="background-color: #eee;">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -48,4 +48,4 @@
             </div>
         </div>
 
-        <?php require_once ROOT_PATH . '/../app/Views/inc/footer.php'; ?>
+        <?php require_once ROOT_PATH . '/../app/Views/template/footer.php'; ?>

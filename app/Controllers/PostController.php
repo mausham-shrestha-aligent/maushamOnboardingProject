@@ -65,7 +65,7 @@ class PostController implements SafeRoute
 
     public function postComments()
     {
-        $postId = (int)$_REQUEST['postId'];
+        $postId = (int)$_POST['postId'];
         $userId = (int)getUserId();
         $comment = $_REQUEST['comment'];
         $this->postModel->commentPost([$comment, $userId, $postId]);

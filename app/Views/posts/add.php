@@ -1,4 +1,4 @@
-<?php require_once ROOT_PATH . '/../app/Views/inc/header.php'; ?>
+<?php require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
 <form action="/posts/submit" method="post">
     <div class="form-outline mb-4">
         <label class="form-label" for="form4Example1">Title</label>
@@ -15,4 +15,4 @@
     </div>
     <button type="submit" class="btn btn-primary btn-block mb-4">Post</button>
 </form>
-<?php require_once ROOT_PATH . '/../app/Views/inc/footer.php'; ?>
+<?php require_once ROOT_PATH . '/../app/Views/template/footer.php'; ?>
