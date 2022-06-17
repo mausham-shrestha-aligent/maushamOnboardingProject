@@ -98,5 +98,3 @@ $post = $postModel->getSinglePosts(explode('?', $_SERVER['REQUEST_URI'])[1]);
         </div>
     </div>
     </div>
-
-<?php require_once ROOT_PATH . '/../app/Views/template/footer.php'; ?>

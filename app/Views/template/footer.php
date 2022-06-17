@@ -12,7 +12,7 @@
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <!-- Footer -->
 <footer class="page-footer font-small cyan darken-3"
-        style="background:#17a2b8 ;color:white; position:relative;bottom:0">
+        style="background:#17a2b8 ;color:white; bottom: 0;">
     <style>
         a:link, a:visited {
             color: white;

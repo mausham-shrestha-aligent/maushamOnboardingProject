@@ -12,7 +12,6 @@
     <div class="container">
         <?= getSessionMsg() ?? '' ?>
 
-
         <div style="position: relative;bottom: 0;left: 0;margin: 5px" >
             <a href="/posts/add" class="btn btn-info" style="height: 50px;width: 50px;align-content: center"><i class="fa fa-pencil" aria-hidden="true"></i></a>
         </div>
@@ -46,5 +45,3 @@
                 </div>
         </div>
     </div>
-
-    <?php require_once ROOT_PATH . '/../app/Views/template/footer.php'; ?>

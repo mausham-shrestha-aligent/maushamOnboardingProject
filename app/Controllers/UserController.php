@@ -49,7 +49,6 @@ class UserController extends Model
             }
 
             return View::make('message');
-
         }
     }
 
@@ -86,5 +85,23 @@ class UserController extends Model
         header('location: ' . 'http://localhost:8000/login');
     }
 
+    public function admin() {
+        return View::make('Admin/admin');
+    }
+    public function adminPost() {
+        $user = $this->userModel->getSearchedUser($_POST['search']);
+        return View::make("Admin/admin", $user);
+    }
+    public function updateUserByAdmin() {
+        $userUpdatedDetails = [
+            'userId'=> $_POST['userId'],
+            'name'=> $_POST['name'],
+            'email'=> $_POST['email'],
+            'password'=> $_POST['password'],
+            'accessLevel'=> $_POST['accessLevel'],
+            'userProfilePic' => $_POST['userProfilePic'],
+        ];
+        $this->userModel->updateUserByAdmin($userUpdatedDetails);
+    }
 
 }

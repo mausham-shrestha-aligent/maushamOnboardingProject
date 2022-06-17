@@ -7,6 +7,7 @@ use App\Controllers\LoginController;
 use App\Controllers\SignUpController;
 use App\Controllers\UserController;
 use App\Controllers\PostController;
+use App\Models\User;
 
 class RouterConfiguration
 {
@@ -18,8 +19,8 @@ class RouterConfiguration
         ['/posts', [PostController::class, 'showPost']],
         ['/posts/add', [PostController::class, 'addPost']],
         ['/posts/edit', [PostController::class, 'editPost']],
-        ['/logout', [UserController::class, 'logout'],
-        ],
+        ['/logout', [UserController::class, 'logout']],
+        ['/admin', [UserController::class, 'admin']],
         ['/singlepost', [PostController::class, 'getSinglePosts']]],
         [
             ['/posts/submit', [PostController::class, 'submitPost']],
@@ -27,7 +28,9 @@ class RouterConfiguration
             ['/posts/delete', [PostController::class, 'deletePost']],
             ['/users/register', [UserController::class, 'register']],
             ['/users/login', [UserController::class, 'login']],
-            ['/comments', [PostController::class, 'postComments']]
+            ['/comments', [PostController::class, 'postComments']],
+            ['/admin', [UserController::class, 'adminPost']],
+            ['/users/register/updateUser', [UserController::class, 'updateUserByAdmin']]
         ]];
 
     public function __construct()
