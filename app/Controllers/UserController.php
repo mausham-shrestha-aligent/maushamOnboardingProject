@@ -93,11 +93,16 @@ class UserController extends Model
         return View::make("Admin/admin", $user);
     }
     public function updateUserByAdmin() {
+        if($_POST['password']!='PASSWORD') {
+            $password = $_POST['password'];
+        } else {
+            $password = hash('sha512',trim($_POST['password']));
+        }
         $userUpdatedDetails = [
             'userId'=> $_POST['userId'],
             'name'=> $_POST['name'],
             'email'=> $_POST['email'],
-            'password'=> $_POST['password'],
+            'password'=> $password,
             'accessLevel'=> $_POST['accessLevel'],
             'userProfilePic' => $_POST['userProfilePic'],
         ];
