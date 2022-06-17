@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Routers;
+namespace App\RouterConfigurations;
 
 use App\Controllers\HomeController;
 use App\Controllers\LoginController;

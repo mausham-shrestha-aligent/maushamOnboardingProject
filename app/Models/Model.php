@@ -2,11 +2,11 @@
 
 namespace  App\Models;
 
-use App\Config\App;
+use App\DatabaseConfiguration\App;
 use JetBrains\PhpStorm\Pure;
 
 abstract class Model {
-    public \App\Config\DB $db;
+    public \App\DatabaseConfiguration\DB $db;
 
     public function __construct()
     {

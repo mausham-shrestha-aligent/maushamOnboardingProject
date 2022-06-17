@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Config {
+namespace App\DatabaseConfiguration {
 
-    use App\Routers\Router;
+    use App\RouterConfigurations\Router;
     use App\Exceptions\RouteNotFoundException;
 
     class App
