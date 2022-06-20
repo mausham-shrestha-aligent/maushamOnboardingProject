@@ -59,6 +59,7 @@ $post = $postModel->getSinglePosts(explode('?', $_SERVER['REQUEST_URI'])[1]);
                                                     <div class="card-body p-4">
                                                         <div class="row">
                                                             <?php foreach ($postModel->getCommentPosts($post['postId']) as $comment): ?>
+                                                            <?php if($comment['visible']==1):?>
                                                             <div class="col">
                                                                 <div class="d-flex flex-start">
                                                                     <img class="rounded-circle shadow-1-strong me-3"
@@ -79,6 +80,19 @@ $post = $postModel->getSinglePosts(explode('?', $_SERVER['REQUEST_URI'])[1]);
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <?php else: ?>
+                                                                <div class="col" style="margin-top: 10px">
+                                                                    <div class="d-flex flex-start">
+                                                                        <div class="flex-grow-1 flex-shrink-1">
+                                                                            <div>
+                                                                                <p class="small mb-0">
+                                                                                    ->This comment is under review, it will be shown once it gets approved from admin
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php endif; ?>
+
 
                                                                 <?php endforeach; ?>
                                                             </div>

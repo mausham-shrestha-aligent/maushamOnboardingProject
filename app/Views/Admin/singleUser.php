@@ -42,7 +42,7 @@
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label" for="form3Example4c">User Access Level</label>&nbsp;&nbsp
                                 <select name="accessLevel" >
-                                    <option value="<?= $this->params['accessLevel'] ?>">Default</option>
+                                    <option value="<?= $this->params['accessLevel'] ?>"><?= $this->params['accessLevel'] ?></option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                 </select>
