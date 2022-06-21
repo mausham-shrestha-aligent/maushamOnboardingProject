@@ -106,7 +106,7 @@ class Post extends Model
             $params = [
                 'error' => $e->getMessage()
             ];
-            return View::make('exceptionsViews/commentLimitError', $params);
+            echo View::make('exceptionsViews/commentLimitError', $params);
         }
 
     }
