@@ -8,5 +8,4 @@ use App\Views\View;
 
 interface SafeRoute {
 
-
 }

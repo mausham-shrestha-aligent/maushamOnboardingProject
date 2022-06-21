@@ -1,8 +1,6 @@
 <?php
-require_once ROOT_PATH . '/../app/Views/inc/header.php'; ?>
-<?php
-$postModel = new \App\Models\Post();
-?>
+require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
+<?php $postModel = new \App\Models\Post(); ?>
 
 
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -11,7 +9,7 @@ $postModel = new \App\Models\Post();
         <p class="lead font-weight-normal">You can view the posts below. For sharing the story, you must have an
             account. Click on get started to create an account if you haven't already but if you have an account, start
             your blogging</p>
-        <a class="btn btn-outline-secondary" href="/posts">Get Started</a>
+        <a class="btn btn-outline-secondary active" href="/posts" style="background-color: black">Get Started</a>
     </div>
     <div class="product-device box-shadow d-none d-md-block"></div>
     <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
@@ -30,13 +28,12 @@ $postModel = new \App\Models\Post();
                         <hr>
                         <p class="card-text mb-center">This is a wider card with supporting text below as a natural
                             lead-in to additional content.</p>
-                        <a href="#" class="stretched-link">Continue reading</a>
+                        <a href="/singlepost?<?= $post['postId']?>" style="background-color: black">Continue reading</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                         <img class="bd-placeholder-img" width="200" height="250" src="<?= $post['imageUrl'] ?>"
                              role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
                              focusable="false"/>
-
                     </div>
                 </div>
             </div>
@@ -90,14 +87,18 @@ $postModel = new \App\Models\Post();
         </div>
 
         <div class="col-md-4">
+
+
+
             <div class="position-sticky" style="top: 2rem;">
 
+
                 <div class="p-4">
-                    <h4>Find us on</h4>
+                    <h4>Find me on</h4>
                     <ol class="list-unstyled">
-                        <li><a href="#">GitHub</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Facebook</a></li>
+                        <li><a href="https://github.com/mausham02" target="_blank" style="color: black">GitHub</a></li>
+                        <li><a href="https://twitter.com/mausham_01" target="_blank" style="color: black">Twitter</a></li>
+                        <li><a href="https://linkedin.com/in/mausham161" target="_blank" style="color: black">LinkedIn</a></li>
                     </ol>
                 </div>
                 <div class="p-4 mb-3 bg-light rounded">
@@ -112,6 +113,7 @@ $postModel = new \App\Models\Post();
 </main>
 
 
-<?php require_once ROOT_PATH . '/../app/Views/inc/footer.php'; ?>
+<?php require_once ROOT_PATH . '/../app/Views/template/footer.php'; ?>
+
 
 

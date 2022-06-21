@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Model;
 use App\Models\User;
 use App\Views\View;
+use Exception;
 use Throwable;
 
 class UserController extends Model
@@ -38,8 +39,9 @@ class UserController extends Model
 
                 $userId = $this->userModel->create($data['name'], $data['email'], $data['password'], $data['userProfilePic']);
                 $user = $this->userModel->find($userId);
-                $this->startUserSession($user);
-
+                if($_SESSION == null || !isAdmin()) {
+                    $this->startUserSession($user);
+                }
                 $this->db->commit();
             } catch (Throwable $e) {
                 if ($this->db->inTransaction()) {
@@ -48,7 +50,13 @@ class UserController extends Model
                 throw $e;
             }
 
-            return View::make('message');
+
+            if(isAdmin()) {
+                $_SESSION['message'] = 'User has been added';
+                header('location: '. 'http://localhost:8000/admin');
+            } else {
+                return View::make('message');
+            }
 
         }
     }
@@ -86,5 +94,61 @@ class UserController extends Model
         header('location: ' . 'http://localhost:8000/login');
     }
 
+    /**
+     * @throws Exception
+     */
+    public function admin()
+    {
+        if($_SESSION != null){
+            if(isAdmin()) {
+                return View::make('Admin/admin');
+            } else {
+                throw new Exception("You are not an admin");
+            }
+        } else {
+            throw new Exception("You are not logged in");
+        }
+    }
+
+    public function adminPost(): View
+    {
+        $user = $this->userModel->getSearchedUser($_POST['search']);
+        return View::make("Admin/admin", $user);
+    }
+    public function updateUserByAdmin() {
+        if($_POST['password']!='PASSWORD') {
+            $password = $_POST['password'];
+        } else {
+            $password = hash('sha512',trim($_POST['password']));
+        }
+        $userUpdatedDetails = [
+            'userId'=> $_POST['userId'],
+            'name'=> $_POST['name'],
+            'email'=> $_POST['email'],
+            'password'=> $password,
+            'accessLevel'=> $_POST['accessLevel'],
+            'userProfilePic' => $_POST['userProfilePic'],
+        ];
+        $this->userModel->updateUserByAdmin($userUpdatedDetails);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function deleteUserByAdmin() {
+        if($_SERVER['REQUEST_METHOD']=='POST') {
+            $userId = $_POST['userId'];
+            if($this->userModel->deleteUserByAdmin($userId)) {
+                header('location: ' . 'http://localhost:8000/admin');
+            } else {
+                throw new Exception('Something went wrong');
+            }
+        }
+        if(isAdmin()) {
+            return View::make('Admin/adminUserDelete');
+        } else {
+            header('location: ' . 'http://localhost:8000');
+        }
+    }
 
 }

@@ -1,7 +1,7 @@
 <?php
 
-use App\Config\App;
-use App\Routers\RouterConfiguration;
+use App\DatabaseConfiguration\App;
+use App\RouterConfigurations\RouterConfiguration;
 
 require_once __DIR__ . '/../app/Helpers/session_helper.php';
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -11,4 +11,4 @@ require_once __DIR__ . '/../vendor/autoload.php';
 const VIEW_PATH = __DIR__ . '/../app/Views';
 const ROOT_PATH = __DIR__;
 
-(new App( (new RouterConfiguration())->getRouter(), new \App\Config\Config($_ENV)))->run();
+(new App( (new RouterConfiguration())->getRouter(), new \App\DatabaseConfiguration\Config($_ENV)))->run();
