@@ -6,8 +6,6 @@ $allData = [
 ];
 ?>
 
-
-
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="position: fixed;">
@@ -73,16 +71,18 @@ $allData = [
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
-            <form action="/admin" method="post" class="form-inline"  style="float: right">
-                <input  class="form-control mr-sm-2" type="email" id="email" placeholder="Enter email" name="search" width="100%">
-                <button type="submit" class="btn btn-primary my-2 my-sm-0" value="submit" style="margin-right: 0px">Submit</button>
-            </form>
             <?php
             $postModel = new \App\Models\Post();
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 require_once ROOT_PATH . '/../app/Views/Admin/singleUser.php';
             }
             ?>
+
+            <form action="/admin" method="post" class="form-inline" style="float: right; margin-top: 20px"  >
+                <input  class="form-control mr-sm-2" type="text" id="email" placeholder="Enter email or user id" name="search" width="100%">
+                <button type="submit" class="btn btn-primary my-2 my-sm-0" value="submit">Submit</button>
+            </form>
+            <h1>User Details</h1>
             <div id="all_user">
                 <?php if ($_SESSION != null && array_key_exists('message', $_SESSION) && $_SESSION['message'] != ''): ?>
                     <p><?php echo $_SESSION['message'];

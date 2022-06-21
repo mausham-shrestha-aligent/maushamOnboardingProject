@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Interface\SafeRoute;
 use App\Models\Post;
 use App\Views\View;
 use Exception;

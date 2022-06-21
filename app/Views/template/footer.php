@@ -11,8 +11,20 @@
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <!-- Footer -->
-<footer class="page-footer"
+<footer class="page-footer font-small cyan darken-3"
         style="background:#17a2b8 ;color:white; bottom: 0;">
+    <style>
+        a:link, a:visited {
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        a:hover, a:active {
+            text-decoration: underline;
+        }
+    </style>
 
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
@@ -28,27 +40,27 @@
 
                 <ul class="list-unstyled">
                     <li><a>
-                            <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i> &nbsp;Facebook
+                            <i class="fab fa-facebook-f fa-lg white-text mr-md-2  fa-2x"> </i>Facebook
                         </a>
                     </li>
                     <li>
                         <a>
-                            <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>&nbsp;Twitter
+                            <i class="fab fa-twitter fa-lg white-text mr-md-2 fa-2x"> </i>&nbsp;Twitter
                         </a>
                     </li>
                     <li>
                         <a>
-                            <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>&nbsp;Google
+                            <i class="fab fa-google-plus-g fa-lg white-text mr-md-2 fa-2x"> </i>&nbsp;Google
                         </a>
                     </li>
                     <li>
                         <a>
-                            <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>&nbsp;LinkedIn
+                            <i class="fab fa-linkedin-in fa-lg white-text mr-md-2 fa-2x"> </i>&nbsp;LinkedIn
                         </a>
                     </li>
                     <li>
                         <a>
-                            <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>&nbsp;Instagram
+                            <i class="fab fa-instagram fa-lg white-text mr-md-2 fa-2x"> </i>&nbsp;Instagram
                         </a>
                     </li>
                 </ul>
