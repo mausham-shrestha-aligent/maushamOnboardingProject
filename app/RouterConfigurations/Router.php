@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\RouterConfigurations;
 
-use App\Controllers\SafeRoute;
+use App\Interface\SafeRoute;
 use App\Exceptions\RouteNotFoundException;
+
 
 class Router
 {
