@@ -6,6 +6,7 @@ namespace App\DatabaseConfiguration {
 
     use App\RouterConfigurations\Router;
     use App\Exceptions\RouteNotFoundException;
+    use App\Views\View;
 
     class App
     {
@@ -31,9 +32,10 @@ namespace App\DatabaseConfiguration {
             try {
                 echo $this->router->resolve($this->request['uri'], strtolower($this->request['method']));
             } catch (RouteNotFoundException  $e) {
-                http_response_code(404);
-
-                echo View::make('error/404');
+                $params = [
+                    'error' => $e->getMessage()
+                ];
+                echo View::make('exceptionsViews/routeError', $params);
             }
         }
     }

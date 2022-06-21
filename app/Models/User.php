@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Exceptions\IdenticalUserException;
+use App\Exceptions\PasswordIncorrectException;
+use mysql_xdevapi\Exception;
+
 class User extends Model
 {
     const ACCESS_LEVEL_ADMIN = 1;
@@ -17,11 +21,18 @@ class User extends Model
         return (int)$this->db->lastInsertId();
     }
 
+    /**
+     * @throws IdenticalUserException
+     */
     public function find(int $userId): array
     {
-        $stmt = $this->db->prepare('Select * from users where id = ?');
-        $stmt->execute([$userId]);
-        return $stmt->fetch() ?: [];
+        try {
+            $stmt = $this->db->prepare('Select * from users where id = ?');
+            $stmt->execute([$userId]);
+            return $stmt->fetch() ?: [];
+        } catch (\Exception $e) {
+            throw new IdenticalUserException($e->getMessage());
+        }
     }
 
     public function findUserByEmail(string $email): bool
@@ -41,6 +52,8 @@ class User extends Model
         $userFetched = $stmt->fetch();
         if ($userFetched['password'] == $password) {
             return $userFetched;
+        } else {
+            throw new PasswordIncorrectException("The password is incorrect, please try again");
         }
         return [];
     }
