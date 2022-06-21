@@ -19,7 +19,7 @@ $allData = [
 </form>
 
 
-<div class="container-fluid" >
+<div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="position: relative">
             <div class="sidebar-sticky">
@@ -90,9 +90,9 @@ $allData = [
             ?>
             <div id="all_user">
                 <h2>User Detail</h2>
-                <?php if($_SESSION['message']!=''): ?>
-                <p><?php echo $_SESSION['message'];
-                $_SESSION['message']='';?></p>
+                <?php if ($_SESSION != null && array_key_exists('message', $_SESSION) && $_SESSION['message'] != ''): ?>
+                    <p><?php echo $_SESSION['message'];
+                        $_SESSION['message'] = ''; ?></p>
                 <?php endif; ?>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
@@ -186,9 +186,44 @@ $allData = [
                 </div>
             </div>
 
+            <div id="deleted_users">
+                <h2>Deleted Users</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Deleted On</th>
+                            <th>Access Level</th>
+                            <th>User Profile Pic</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $userModel = new \App\Models\User();
+                        $deletedUsers = $userModel->getDeletedUsers();
+                        ?>
+                        <?php foreach ($deletedUsers as $deletedUser): ?>
+                            <tr>
+                                <td><?php echo $deletedUser['id'] ?></td>
+                                <td><?php echo $deletedUser['name'] ?></td>
+                                <td><?php echo $deletedUser['email'] ?></td>
+                                <td><?php echo $deletedUser['deleted_at'] ?></td>
+                                <td><?php $accessLevel = $deletedUser['accessLevel'] == 0 ? 'user' : 'Admin';
+                                    echo $accessLevel ?></td>
+                                <td><a href = "<?php echo $deletedUser['userProfilePic']?>" target="_blank">Click to view</a></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <hr>
             <div id="register_user">
-                <?php require_once ROOT_PATH.'/../app/Views/signupTemplate.php'?>
+                <?php require_once ROOT_PATH . '/../app/Views/signupTemplate.php' ?>
             </div>
         </main>
     </div>

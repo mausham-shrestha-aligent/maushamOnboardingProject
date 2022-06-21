@@ -39,7 +39,7 @@ class UserController extends Model
 
                 $userId = $this->userModel->create($data['name'], $data['email'], $data['password'], $data['userProfilePic']);
                 $user = $this->userModel->find($userId);
-                if(!isAdmin()) {
+                if($_SESSION == null || !isAdmin()) {
                     $this->startUserSession($user);
                 }
                 $this->db->commit();

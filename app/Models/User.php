@@ -5,8 +5,6 @@ namespace App\Models;
 class User extends Model
 {
     const ACCESS_LEVEL_ADMIN = 1;
-    const ACCESS_LEVEL_READ_ONLY = 2;
-    const ACCESS_LEVEL_NORMAL = 3;
 
     public function create(string $name, string $email, string $password, string $userProfilePic): int
     {
@@ -72,7 +70,8 @@ class User extends Model
     public function deleteUserByAdmin($userId)
     {
         //Preserving users info for future reference
-        $_stmt = $this->db->prepare('INSERT INTO deletedUsers SELECT * FROM users where id = ?');
+        $_stmt = $this->db->prepare('INSERT INTO deletedUsers(id, name, email, password, accessLevel, userProfilePic, deleted_at) 
+                                        SELECT id, name, email, password, accessLevel, userProfilePic, Now() FROM users where id = ?');
         $_stmt->execute([$userId]);
         //Preserving post from deleted users
         $__stmt = $this->db->prepare('INSERT INTO deletePosts SELECT * from posts where user_id = ?');
@@ -84,5 +83,13 @@ class User extends Model
         $stmt = $this->db->prepare('DELETE FROM users where id = ?');
         $stmt->execute([$userId]);
         return true;
+    }
+
+    public function getDeletedUsers()
+    {
+        $stmt = $this->db->prepare('SELECT * from deletedUsers');
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        return is_bool($results) ? [] : $results;
     }
 }

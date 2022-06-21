@@ -31,15 +31,15 @@
                         <div class="body" style="margin: auto;align-content: center"
                         ">
                         <img style="width: 300px;height: 300px;" src="<?= $post['imageUrl'] ?>" alt="Awesome Image">
-                        <?php if (getUserId() == $post['id'] || isAdmin()): ?>
+                        <?php if (getUserId() == $post['user_id'] || isAdmin()): ?>
                             <div><p><?= $post['body'] ?></p></div>
                             <form action="/posts/delete" method="POST">
-                                <input type="hidden" name="post" value=<?= $post['postId'] ?>>
-                                <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button"><a style="color: black;font-weight: bold" href="/singlepost?<?= $post['postId'] ?>"
+                                <input type="hidden" name="post" value=<?= $post['id'] ?>>
+                                <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button"><a style="color: black;font-weight: bold" href="/singlepost?<?= $post['id'] ?>"
                                                                                                    title="read more" type="button">Do More</a></button>
                                 <button class="btn btn-outline-primary btn-sm ml-1 shadow-none" type="button"></a><a
                                             style="color: black;font-weight: bold"
-                                            href="/posts/edit?<?= $post['postId'] ?>">Edit</a></button>
+                                            href="/posts/edit?<?= $post['id'] ?>">Edit</a></button>
                                 <button type="submit" class="btn btn-danger btn-sm ml-1 shadow-none"
                                         style="font-weight: bold; float: right">
                                     Delete
