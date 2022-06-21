@@ -43,7 +43,8 @@ class UserController extends Model
                     throw new RegisterEmptyFieldsExceptions("Name or Email or Password cannot be empty");
                 } else {
                     try {
-                        if($data['password'] == $_POST['repeat_password']) {
+
+                        if($data['password'] ==hash('sha512',trim($_POST['repeat_password']))) {
                             try {
                                 $this->db->beginTransaction();
 

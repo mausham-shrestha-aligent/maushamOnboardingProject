@@ -95,12 +95,20 @@ class Post extends Model
 
     public function commentPost(array $array)
     {
-        $stmt = $this->db->prepare(
-            'Insert into comments(comment, user_id, post_id) values (?,?,?)'
-        );
-        $stmt->execute([$array[0], $array[1], $array[2]]);
-        $_SESSION['session_msg'] = "The comment has been posted";
-        header('location: ' . 'http://localhost:8000/');
+        try{
+            $stmt = $this->db->prepare(
+                'Insert into comments(comment, user_id, post_id) values (?,?,?)'
+            );
+            $stmt->execute([$array[0], $array[1], $array[2]]);
+            $_SESSION['session_msg'] = "The comment has been posted";
+            header('location: ' . 'http://localhost:8000/');
+        } catch (\Exception $e) {
+            $params = [
+                'error' => $e->getMessage()
+            ];
+            return View::make('exceptionsViews/commentLimitError', $params);
+        }
+
     }
 
     public function getSinglePosts($postId)
