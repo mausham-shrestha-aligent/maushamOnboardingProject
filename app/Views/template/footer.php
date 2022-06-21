@@ -11,11 +11,13 @@
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <!-- Footer -->
-<footer class="page-footer font-small cyan darken-3"
+<footer class="page-footer"
         style="background:#17a2b8 ;color:white; bottom: 0;">
     <style>
-        a:link, a:visited {
+        a{
             color: white;
+        }
+        a:link, a:visited {
             padding: 15px 25px;
             text-align: center;
             text-decoration: none;
@@ -23,7 +25,7 @@
         }
 
         a:hover, a:active {
-            background-color: red;
+            color: white;
         }
     </style>
 

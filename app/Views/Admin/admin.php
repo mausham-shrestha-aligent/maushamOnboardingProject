@@ -228,3 +228,4 @@ $allData = [
         </main>
     </div>
 </div>
+<?php require_once ROOT_PATH . '/../app/Views/template/footer.php'?>

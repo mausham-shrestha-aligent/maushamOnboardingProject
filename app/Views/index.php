@@ -9,7 +9,7 @@ require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
         <p class="lead font-weight-normal">You can view the posts below. For sharing the story, you must have an
             account. Click on get started to create an account if you haven't already but if you have an account, start
             your blogging</p>
-        <a class="btn btn-outline-secondary" href="/posts" style="background-color: black">Get Started</a>
+        <a class="btn btn-outline-secondary active" href="/posts" style="background-color: black">Get Started</a>
     </div>
     <div class="product-device box-shadow d-none d-md-block"></div>
     <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
@@ -87,7 +87,12 @@ require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
         </div>
 
         <div class="col-md-4">
+
+
+
             <div class="position-sticky" style="top: 2rem;">
+
+
                 <div class="p-4">
                     <h4>Find me on</h4>
                     <ol class="list-unstyled">
