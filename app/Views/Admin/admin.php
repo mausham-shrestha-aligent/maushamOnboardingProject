@@ -5,39 +5,28 @@ $allData = [
     'users' => (new \App\Models\User())->getAllUsers()
 ];
 ?>
-<form action="/admin" method="post">
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Actions</a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Enter User email to search"
-               aria-label="Search" name="search">
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <input type="submit" value="submit"/>
-            </li>
-        </ul>
-    </nav>
-</form>
+
 
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="position: relative">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="position: fixed;">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/posts">
+                        <a class="nav-link active" style="color: black" href="/posts">
                             <span data-feather="home"></span>
                             User Posts<span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/comments">
+                        <a class="nav-link" style="color: black" href="/comments">
                             <span data-feather="shopping-cart"></span>
                             Monitor comments
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin#register_user">
+                        <a class="nav-link" style="color: black" href="/admin#register_user">
                             <span data-feather="shopping-cart"></span>
                             Add Users
                         </a>
@@ -53,25 +42,26 @@ $allData = [
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin#all_users">
+                        <a class="nav-link" style="color: black" href="/admin#all_users">
                             <span data-feather="file-text"></span>
                             All Users
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin#deleted_comments">
+                        <a class="nav-link" style="color: black""
+                         href="/admin#deleted_comments">
                             <span data-feather="file-text"></span>
                             Deleted Comments
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin#deleted_posts">
+                        <a class="nav-link" style="color: black" href="/admin#deleted_posts">
                             <span data-feather="file-text"></span>
                             Deleted Posts
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin#deleted_users">
+                        <a class="nav-link" style="color: black; " href="/admin#deleted_users">
                             <span data-feather="file-text"></span>
                             Deleted Users
                         </a>
@@ -82,6 +72,11 @@ $allData = [
 
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <form action="/admin" method="post" class="form-inline"  style="float: right">
+                <input  class="form-control mr-sm-2" type="email" id="email" placeholder="Enter email" name="search" width="100%">
+                <button type="submit" class="btn btn-primary my-2 my-sm-0" value="submit" style="margin-right: 0px">Submit</button>
+            </form>
             <?php
             $postModel = new \App\Models\Post();
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -89,7 +84,6 @@ $allData = [
             }
             ?>
             <div id="all_user">
-                <h2>User Detail</h2>
                 <?php if ($_SESSION != null && array_key_exists('message', $_SESSION) && $_SESSION['message'] != ''): ?>
                     <p><?php echo $_SESSION['message'];
                         $_SESSION['message'] = ''; ?></p>

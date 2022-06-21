@@ -13,21 +13,6 @@
 <!-- Footer -->
 <footer class="page-footer"
         style="background:#17a2b8 ;color:white; bottom: 0;">
-    <style>
-        a{
-            color: white;
-        }
-        a:link, a:visited {
-            padding: 15px 25px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        a:hover, a:active {
-            color: white;
-        }
-    </style>
 
     <!-- Footer Links -->
     <div class="container text-center text-md-left">

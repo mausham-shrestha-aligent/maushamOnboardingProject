@@ -11,7 +11,7 @@
             <a href="/delete-user-admin?<?= $this->params['id'] ?>">
                 <button type="button" class="btn btn-danger" style = "float: right">Delete this user</button>
             </a>
-            <?endif;?>
+            <?php endif;?>
 
             <div class="row justify-content-center">
 
