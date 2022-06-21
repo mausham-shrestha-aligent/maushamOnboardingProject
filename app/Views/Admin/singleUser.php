@@ -1,8 +1,22 @@
 <div class="col-lg-12 col-xl-11">
     <div class="card text-black" style="border-radius: 25px;">
         <div class="card-body p-md-5">
+            <a href="/posts?<?= $this->params['id'] ?>">
+                <button type="button">Post From this user</button>
+            </a>
+            <a href="/comments?<?= $this->params['id'] ?>">
+                <button type="button">comments from this user</button>
+            </a>
+            <?php if(getUserId()!=$this->params['id']):?>
+            <a href="/delete-user-admin?<?= $this->params['id'] ?>">
+                <button type="button" class="btn btn-danger" style = "float: right">Delete this user</button>
+            </a>
+            <?endif;?>
+
             <div class="row justify-content-center">
+
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
 
                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Change Account Details</p>
 
@@ -32,7 +46,7 @@
                             <div class="form-outline flex-fill mb-0">
                                 <input type="password" id="form3Example4c" class="form-control"
                                        name="password" Value="<?= $this->params['password'] ?>"/>
-                                <label class="form-label" for="form3Example4c" >Password</label>
+                                <label class="form-label" for="form3Example4c">Password</label>
                             </div>
                         </div>
 
@@ -41,7 +55,7 @@
                             <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
                                 <label class="form-label" for="form3Example4c">User Access Level</label>&nbsp;&nbsp
-                                <select name="accessLevel" >
+                                <select name="accessLevel">
                                     <option value="<?= $this->params['accessLevel'] ?>"><?= $this->params['accessLevel'] ?></option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
@@ -63,6 +77,7 @@
                         </div>
 
                     </form>
+
 
                 </div>
             </div>

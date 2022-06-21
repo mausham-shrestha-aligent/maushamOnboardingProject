@@ -21,7 +21,9 @@ class RouterConfiguration
         ['/posts/edit', [PostController::class, 'editPost']],
         ['/logout', [UserController::class, 'logout']],
         ['/admin', [UserController::class, 'admin']],
-        ['/singlepost', [PostController::class, 'getSinglePosts']]],
+        ['/singlepost', [PostController::class, 'getSinglePosts']],
+        ['/delete-user-admin', [UserController::class, 'deleteUserByAdmin']],
+        ['/comments',[PostController::class,'getAllCommentsOrUserSpecificComments']]],
         [
             ['/posts/submit', [PostController::class, 'submitPost']],
             ['/posts/update', [PostController::class, 'updatePost']],
@@ -30,7 +32,11 @@ class RouterConfiguration
             ['/users/login', [UserController::class, 'login']],
             ['/comments', [PostController::class, 'postComments']],
             ['/admin', [UserController::class, 'adminPost']],
-            ['/users/register/updateUser', [UserController::class, 'updateUserByAdmin']]
+            ['/admin-comments-delete', [PostController::class, 'adminCommentsDelete']],
+            ['/admin-comments-approve', [PostController::class, 'adminCommentsApprove']],
+            ['/register-user-admin', [UserController::class, 'registerUserByAdmin']],
+            ['/users/register/updateUser', [UserController::class, 'updateUserByAdmin']],
+            ['/delete-user-admin', [UserController::class, 'deleteUserByAdmin']]
         ]];
 
     public function __construct()

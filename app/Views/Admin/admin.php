@@ -19,9 +19,9 @@ $allData = [
 </form>
 
 
-<div class="container-fluid">
+<div class="container-fluid" >
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="position: relative">
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -31,29 +31,18 @@ $allData = [
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
-                            Delete Posts
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/comments">
                             <span data-feather="shopping-cart"></span>
                             Monitor comments
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="bar-chart-2"></span>
-                            Update User
+                        <a class="nav-link" href="/admin#register_user">
+                            <span data-feather="shopping-cart"></span>
+                            Add Users
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="layers"></span>
-                            TO DO
-                        </a>
-                    </li>
+
                 </ul>
 
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -64,65 +53,142 @@ $allData = [
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/admin#all_users">
                             <span data-feather="file-text"></span>
-                            Deleted Users
+                            All Users
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/admin#deleted_comments">
                             <span data-feather="file-text"></span>
                             Deleted Comments
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/admin#deleted_posts">
                             <span data-feather="file-text"></span>
                             Deleted Posts
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/admin#deleted_users">
                             <span data-feather="file-text"></span>
-                            TO DO
+                            Deleted Users
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
 
+
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <?php
+            $postModel = new \App\Models\Post();
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 require_once ROOT_PATH . '/../app/Views/Admin/singleUser.php';
             }
             ?>
-            <h2>User Detail</h2>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Date Created</th>
-                        <th>Profile Pic Link</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($allData['users'] as $user): ?>
+            <div id="all_user">
+                <h2>User Detail</h2>
+                <?php if($_SESSION['message']!=''): ?>
+                <p><?php echo $_SESSION['message'];
+                $_SESSION['message']='';?></p>
+                <?php endif; ?>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
                         <tr>
-                            <td><?php echo $user['id'] ?></td>
-                            <td><?php echo $user['name'] ?></td>
-                            <td><?php echo $user['email'] ?></td>
-                            <td><?php echo $user['created_at'] ?></td>
-                            <td>
-                                <a href="<?php echo $user['userProfilePic'] ?>"><?php echo $user['userProfilePic'] ?></a>
-                            </td>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Date Created</th>
+                            <th>Profile Pic Link</th>
                         </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($allData['users'] as $user): ?>
+                            <tr>
+                                <td><?php echo $user['id'] ?></td>
+                                <td><?php echo $user['name'] ?></td>
+                                <td><?php echo $user['email'] ?></td>
+                                <td><?php echo $user['created_at'] ?></td>
+                                <td>
+                                    <a href="<?php echo $user['userProfilePic'] ?>" target="_blank">Click to view</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="deleted_posts">
+                <h2>Deleted posts</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th>Post ID</th>
+                            <th>User ID</th>
+                            <th>Title</th>
+                            <th>Body of Posts</th>
+                            <th>Deleted On</th>
+                            <th>Image</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $deletedPosts = $postModel->getDeletedPosts();
+                        ?>
+                        <?php foreach ($deletedPosts as $deletedPost): ?>
+                            <tr>
+                                <td><?php echo $deletedPost['id'] ?></td>
+                                <td><?php echo $deletedPost['user_id'] ?></td>
+                                <td><?php echo $deletedPost['title'] ?></td>
+                                <td><?php echo $deletedPost['body'] ?></td>
+                                <td><?php echo $deletedPost['deleted_at'] ?></td>
+                                <td>
+                                    <a href="<?php echo $deletedPost['imageUrl'] ?>" target="_blank">Click to view</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="deleted_comments">
+                <h2>Deleted Comments</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                        <tr>
+                            <th>Comment ID</th>
+                            <th>Comment</th>
+                            <th>User ID</th>
+                            <th>Post ID</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $deletedComments = $postModel->getDeletedComments();
+                        ?>
+                        <?php foreach ($deletedComments as $deletedComment): ?>
+                            <tr>
+                                <td><?php echo $deletedComment['id'] ?></td>
+                                <td><?php echo $deletedComment['comment'] ?></td>
+                                <td><?php echo $deletedComment['user_id'] ?></td>
+                                <td><?php echo $deletedComment['post_id'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr>
+            <div id="register_user">
+                <?php require_once ROOT_PATH.'/../app/Views/signupTemplate.php'?>
             </div>
         </main>
     </div>

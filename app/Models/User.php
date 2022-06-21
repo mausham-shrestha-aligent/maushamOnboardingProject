@@ -4,7 +4,6 @@ namespace App\Models;
 
 class User extends Model
 {
-
     const ACCESS_LEVEL_ADMIN = 1;
     const ACCESS_LEVEL_READ_ONLY = 2;
     const ACCESS_LEVEL_NORMAL = 3;
@@ -67,6 +66,23 @@ class User extends Model
         $stmt = $this->db->prepare('UPDATE users SET name = ?, email=?, password=?, accessLevel=?, userProfilePic=?, created_at = now() where id = ?');
         $stmt->execute([$userUpdatedDetails['name'], $userUpdatedDetails['email'],
             $userUpdatedDetails['password'], $userUpdatedDetails['accessLevel'], $userUpdatedDetails['userProfilePic'], $userUpdatedDetails['userId']]);
-        header('location: '. 'http://localhost:8000/admin');
+        header('location: ' . 'http://localhost:8000/admin');
+    }
+
+    public function deleteUserByAdmin($userId)
+    {
+        //Preserving users info for future reference
+        $_stmt = $this->db->prepare('INSERT INTO deletedUsers SELECT * FROM users where id = ?');
+        $_stmt->execute([$userId]);
+        //Preserving post from deleted users
+        $__stmt = $this->db->prepare('INSERT INTO deletePosts SELECT * from posts where user_id = ?');
+        $__stmt->execute([$userId]);
+        //Preserving comments from deleted users
+        $___stmt = $this->db->prepare('INSERT INTO deletedComments SELECT * FROM comments where user_id = ?');
+        $___stmt->execute([$userId]);
+        //Deleting user
+        $stmt = $this->db->prepare('DELETE FROM users where id = ?');
+        $stmt->execute([$userId]);
+        return true;
     }
 }

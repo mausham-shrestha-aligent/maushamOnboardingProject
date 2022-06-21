@@ -1,8 +1,6 @@
 <?php
 require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
-<?php
-$postModel = new \App\Models\Post();
-?>
+<?php $postModel = new \App\Models\Post(); ?>
 
 
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -36,7 +34,6 @@ $postModel = new \App\Models\Post();
                         <img class="bd-placeholder-img" width="200" height="250" src="<?= $post['imageUrl'] ?>"
                              role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
                              focusable="false"/>
-
                     </div>
                 </div>
             </div>
@@ -94,9 +91,9 @@ $postModel = new \App\Models\Post();
                 <div class="p-4">
                     <h4>Find me on</h4>
                     <ol class="list-unstyled">
-                        <li><a href="#" style="color: black">GitHub</a></li>
-                        <li><a href="#" style="color: black">Twitter</a></li>
-                        <li><a href="#" style="color: black">Facebook</a></li>
+                        <li><a href="https://github.com/mausham02" target="_blank" style="color: black">GitHub</a></li>
+                        <li><a href="https://twitter.com/mausham_01" target="_blank" style="color: black">Twitter</a></li>
+                        <li><a href="https://linkedin.com/in/mausham161" target="_blank" style="color: black">LinkedIn</a></li>
                     </ol>
                 </div>
                 <div class="p-4 mb-3 bg-light rounded">

@@ -9,7 +9,7 @@ $post = $postModel->getSinglePosts(explode('?', $_SERVER['REQUEST_URI'])[1]);
             <div class="d-flex justify-content-left row" >
                 <div class="col-md-7" >
                     <div class="d-flex flex-column comment-section"style="align-content: center">
-                        <div class="p-2" style="background: #17a2b8;">
+                        <div class="p-2">
                             <div class="d-flex flex-column justify-content-start ml-2"><span
                                         class="d-block font-weight-bold name"><?= $post['name'] ?></span><span
                                         class="date text-black-50">Shared <?= $post['postCreated'] ?> </span></div>
@@ -60,13 +60,13 @@ $post = $postModel->getSinglePosts(explode('?', $_SERVER['REQUEST_URI'])[1]);
                                                         <div class="row">
                                                             <?php foreach ($postModel->getCommentPosts($post['postId']) as $comment): ?>
                                                             <?php if($comment['visible']==1):?>
-                                                            <div class="col">
+                                                            <div class="col" style="margin-top: 20px">
                                                                 <div class="d-flex flex-start">
                                                                     <img class="rounded-circle shadow-1-strong me-3"
                                                                          src="  <?php echo $comment['userProfilePic'] ?>"
                                                                          alt="avatar"
-                                                                         width="65"
-                                                                         height="65"/>
+                                                                         width="45"
+                                                                         height="45"/>
                                                                     <div class="flex-grow-1 flex-shrink-1">
                                                                         <div>
                                                                             <div class="d-flex justify-content-between align-items-center">

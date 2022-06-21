@@ -1,7 +1,6 @@
 <?php
 $_SESSION= null;
 session_start();
-
 function isLoggedIn()
 {
     return isset($_SESSION['user']);
