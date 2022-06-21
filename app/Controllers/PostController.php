@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\EmptyTitleOrBodyException;
 use App\Interface\SafeRoute;
 use App\Models\Post;
 use App\Views\View;
@@ -27,6 +28,9 @@ class PostController implements SafeRoute
         return View::make('posts/add');
     }
 
+    /**
+     * @throws Exception
+     */
     public function submitPost()
     {
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -36,7 +40,18 @@ class PostController implements SafeRoute
             'body' => trim($_POST['body']),
             'imageUrl' => trim($_POST['imageUrl'])
         ];
-        $this->postModel->submitPost($data);
+        try {
+            if(strlen($data['body']) == 0 || strlen($data['title'])==0) {
+                throw new EmptyTitleOrBodyException("Title or Body cannot be empty");
+            } else {
+                $this->postModel->submitPost($data);
+            }
+        } catch (Exception $e) {
+            $params = [
+                'error' => $e->getMessage()
+            ];
+            echo View::make('exceptionsViews/blogBodyOrTitleError', $params);
+        }
     }
 
     public function editPost(): View

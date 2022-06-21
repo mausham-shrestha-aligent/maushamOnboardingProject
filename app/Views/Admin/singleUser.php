@@ -8,8 +8,8 @@
                 <button type="button" class="btn btn-primary">comments from this user</button>
             </a>
             <?php if (getUserId() != $this->params['id']): ?>
-                <a href="/delete-user-admin?<?= $this->params['id'] ?>">
-                    <button type="button" class="btn btn-danger" style="float: right">Delete this user</button>
+                <a href="/delete-user-admin?<?= $this->params['id'] ?>"  style="float: right">
+                    <button type="button" class="btn btn-danger">Delete this user</button>
                 </a>
             <?php endif; ?>
 
