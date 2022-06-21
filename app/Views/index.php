@@ -87,12 +87,7 @@ require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
         </div>
 
         <div class="col-md-4">
-
-
-
             <div class="position-sticky" style="top: 2rem;">
-
-
                 <div class="p-4">
                     <h4>Find me on</h4>
                     <ol class="list-unstyled">

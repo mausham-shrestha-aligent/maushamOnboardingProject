@@ -26,15 +26,26 @@ class Post extends Model
         return $stmt->fetchAll();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function submitPost(array $data)
     {
-        $stmt = $this->db->prepare(
-            'Insert into posts(user_id, title, body,imageUrl) values (?, ?, ?,?)'
-        );
-
-        $stmt->execute([$data['user_id'], $data['title'], $data['body'], $data['imageUrl']]);
-
-        header('location:' . 'http://localhost:8000/posts');
+        try {
+            $stmt = $this->db->prepare(
+                'Insert into posts(user_id, title, body,imageUrl) values (?, ?, ?,?)'
+            );
+            $stmt->execute([$data['user_id'], $data['title'], $data['body'], $data['imageUrl']]);
+            header('location:' . 'http://localhost:8000/posts');
+        } catch (\Exception $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            $params = [
+                'error' => "Cannot post because the blog body has more than 75 characters"
+            ];
+            echo View::make('exceptionsViews/blogBodyLimitError', $params);
+        }
     }
 
     public function deletePost(int $postId)
@@ -84,12 +95,20 @@ class Post extends Model
 
     public function commentPost(array $array)
     {
-        $stmt = $this->db->prepare(
-            'Insert into comments(comment, user_id, post_id) values (?,?,?)'
-        );
-        $stmt->execute([$array[0], $array[1], $array[2]]);
-        $_SESSION['session_msg'] = "The comment has been posted";
-        header('location: ' . 'http://localhost:8000/');
+        try{
+            $stmt = $this->db->prepare(
+                'Insert into comments(comment, user_id, post_id) values (?,?,?)'
+            );
+            $stmt->execute([$array[0], $array[1], $array[2]]);
+            $_SESSION['session_msg'] = "The comment has been posted";
+            header('location: ' . 'http://localhost:8000/');
+        } catch (\Exception $e) {
+            $params = [
+                'error' => $e->getMessage()
+            ];
+            echo View::make('exceptionsViews/commentLimitError', $params);
+        }
+
     }
 
     public function getSinglePosts($postId)

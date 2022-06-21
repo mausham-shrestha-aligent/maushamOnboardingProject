@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\RouterConfigurations;
 
 use App\Controllers\SafeRoute;
+use App\Exceptions\RouteNotFoundException;
 
 class Router
 {
@@ -13,7 +14,6 @@ class Router
     public function register(string $requestMethod, string $route, callable|array $action): self
     {
         $this->routes[$requestMethod][$route] = $action;
-
         return $this;
     }
 
@@ -27,15 +27,16 @@ class Router
         return $this->register('post', $route, $action);
     }
 
+    /**
+     * @throws RouteNotFoundException
+     */
     public function resolve(string $requestUri, string $requestMethod)
     {
         $route = explode('?', $requestUri)[0];
         $action = $this->routes[$requestMethod][$route] ?? null;
-
-        if (!$action) {
-            echo "There is no action";
+        if($action==null) {
+            throw new RouteNotFoundException("This is an invalid route");
         }
-
         if (is_callable($action)) {
             return call_user_func($action);
         }
@@ -50,7 +51,6 @@ class Router
                 }
             }
         }
-
     }
 
     private function checkSafeRoute($controller)
