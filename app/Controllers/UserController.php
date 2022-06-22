@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\AdminSearchUserException;
 use App\Exceptions\EmptyEmailPasswordException;
 use App\Exceptions\LoginException;
 use App\Exceptions\RegisterEmptyFieldsExceptions;
@@ -22,7 +23,6 @@ class UserController extends Model
         $this->userModel = new User();
         parent::__construct();
     }
-
     /**
      * @throws Throwable
      */
@@ -155,7 +155,7 @@ class UserController extends Model
     /**
      * @throws Exception
      */
-    public function admin()
+    public function admin(): View
     {
         if($_SESSION != null){
             if(isAdmin()) {
@@ -168,11 +168,22 @@ class UserController extends Model
         }
     }
 
-    public function adminPost(): View
+    /**
+     * @throws Exception
+     */
+    public function adminPost()
     {
-        $user = $this->userModel->getSearchedUser($_POST['search']);
-        return View::make("Admin/admin", $user);
+        try {
+            $user = $this->userModel->getSearchedUser($_POST['search']);
+            return View::make("Admin/admin", $user);
+        } catch (AdminSearchUserException $e) {
+            $params = [
+                'error' => $e->getMessage()
+            ];
+            echo View::make('exceptionsViews/adminusersearchError', $params);
+        }
     }
+
     public function updateUserByAdmin() {
         if($_POST['password']!='PASSWORD') {
             $password = $_POST['password'];

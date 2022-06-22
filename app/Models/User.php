@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Exceptions\AdminSearchUserException;
 use App\Exceptions\IdenticalUserException;
 use App\Exceptions\PasswordIncorrectException;
-use mysql_xdevapi\Exception;
 
 class User extends Model
 {
@@ -65,11 +65,18 @@ class User extends Model
         return $stmt->fetchAll();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function getSearchedUser($userDetail)
     {
         $stmt = $this->db->prepare('SELECT * from users where id = ? or email = ?');
         $stmt->execute([$userDetail, $userDetail]);
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+
+        if (is_bool($result)) {
+            throw new AdminSearchUserException('Couldn\'t find any user with that id');
+        } else return $result;
     }
 
     public function updateUserByAdmin($userUpdatedDetails)
