@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Views\View;
-
+/** Returns the signup page if not logged in */
 class SignUpController
 {
     public function signUp() : View {
