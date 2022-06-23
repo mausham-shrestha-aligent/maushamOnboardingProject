@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use App\Views\View;
+use Exception;
 
 class Post extends Model
 {
-    public function create(): int
-    {
-        return 0;
-    }
-
+    /**
+     * Helps get all the post
+     * @return array|false
+     */
     public function getPosts()
     {
         $stmt = $this->db->prepare(
@@ -27,7 +27,8 @@ class Post extends Model
     }
 
     /**
-     * @throws \Exception
+     * Submit the new post.. If failed throws Exception
+     * @throws Exception
      */
     public function submitPost(array $data)
     {
@@ -36,8 +37,8 @@ class Post extends Model
                 'Insert into posts(user_id, title, body,imageUrl) values (?, ?, ?,?)'
             );
             $stmt->execute([$data['user_id'], $data['title'], $data['body'], $data['imageUrl']]);
-            header('location:' . 'http://localhost:8000/posts');
-        } catch (\Exception $e) {
+            return true;
+        } catch (Exception $e) {
             if ($this->db->inTransaction()) {
                 $this->db->rollBack();
             }
@@ -48,10 +49,16 @@ class Post extends Model
         }
     }
 
+    /**
+     * This function deletes post
+     * @param int $postId
+     * @return void
+     * @throws Exception
+     */
     public function deletePost(int $postId)
     {
         if ($this->checkIfBeingHacked($postId)) {
-            throw new \Exception('Cannot Delete post');
+            throw new Exception('Cannot Delete post');
         }
 
         $_stmt = $this->db->prepare('insert into deletePosts select * from posts where id = ?');
@@ -66,6 +73,11 @@ class Post extends Model
         header('location:' . 'http://localhost:8000/posts');
     }
 
+    /**
+     * This function send the helps present the editable version of their published post
+     * @param $postId
+     * @return View
+     */
     public function editPost($postId): View
     {
         $stmt = $this->db->prepare(
@@ -79,30 +91,41 @@ class Post extends Model
         return View::make('posts/edit', $result);
     }
 
+    /**
+     * This will update post
+     * @param $postId
+     * @return void
+     * @throws Exception
+     */
     public function updatePost($postId)
     {
         if ($this->checkIfBeingHacked($postId)) {
-            throw new \Exception('Cannot update post');
+            throw new Exception('Cannot update post');
         }
         $stmt = $this->db->prepare(
             'UPDATE posts SET title=?, body=?, imageUrl = ? where id=?'
         );
-        $stmt->execute([$_POST['title'], $_POST['body'], $_POST['imageUrl'],$postId]);
+        $stmt->execute([$_POST['title'], $_POST['body'], $_POST['imageUrl'], $postId]);
         $_SESSION['session_msg'] = "The post has been updated";
         header('location: ' . 'http://localhost:8000/posts');
 
     }
 
+    /**
+     * This function is for commenting on posts
+     * @param array $array
+     * @return void
+     */
     public function commentPost(array $array)
     {
-        try{
+        try {
             $stmt = $this->db->prepare(
                 'Insert into comments(comment, user_id, post_id) values (?,?,?)'
             );
             $stmt->execute([$array[0], $array[1], $array[2]]);
             $_SESSION['session_msg'] = "The comment has been posted";
             header('location: ' . 'http://localhost:8000/');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $params = [
                 'error' => $e->getMessage()
             ];
@@ -111,6 +134,11 @@ class Post extends Model
 
     }
 
+    /**
+     * This function gets single post so that users can comment
+     * @param $postId
+     * @return mixed
+     */
     public function getSinglePosts($postId)
     {
         $stmt = $this->db->prepare(
@@ -122,7 +150,11 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
         return $stmt->fetch();
     }
 
-
+    /**
+     * This function helps to get all the comments for the particular posts
+     * @param $postId
+     * @return array|false
+     */
     public function getCommentPosts($postId)
     {
         $stmt = $this->db->prepare(
@@ -134,6 +166,7 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
     }
 
     /**
+     * This is for preventing SQL injection where user can edit someone else posts
      * @param $postId
      * @return bool
      */
@@ -149,6 +182,10 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
         }
     }
 
+    /**
+     * This function helps to return comments from all the users or particular users
+     * @return bool|array
+     */
     public function getAllCommentsOrSingleComments(): bool|array
     {
         $getRouteData = explode('?', $_SERVER['REQUEST_URI']);
@@ -163,6 +200,11 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
         return is_bool($results) ? [] : $results;
     }
 
+    /**
+     * This function helps to retrieve all the deleted comments from the database
+     * @param mixed $commentId
+     * @return bool
+     */
     public function deleteComments(mixed $commentId): bool
     {
         $_stmt = $this->db->prepare('insert into deletedComments select * from comments where id = ?');
@@ -172,6 +214,11 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
         return true;
     }
 
+    /**
+     * This function helps admin approve the comments from the users
+     * @param mixed $commentId
+     * @return bool
+     */
     public function approveComments(mixed $commentId): bool
     {
         $stmt = $this->db->prepare('UPDATE comments set visible = 1 where id = ?');
@@ -179,7 +226,8 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
         return true;
     }
 
-    public function getSingleUserPosts($userId)
+    /** Gets the post from single user */
+    public function getSingleUserPosts($userId): bool|array
     {
         $stmt = $this->db->prepare('SELECT * from posts where user_id = ?');
         $stmt->execute([$userId]);
@@ -187,7 +235,8 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
         return is_bool($results) ? [] : $results;
     }
 
-    public function getDeletedPosts()
+    /** gets all the deleted posts */
+    public function getDeletedPosts(): bool|array
     {
         $stmt = $this->db->prepare('SELECT * from deletePosts');
         $stmt->execute();
@@ -195,12 +244,22 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
         return is_bool($result) ? [] : $result;
     }
 
+    /** Get all the deleted comments */
     public function getDeletedComments()
     {
         $stmt = $this->db->prepare('SELECT * from deletedComments');
         $stmt->execute();
         $result = $stmt->fetchAll();
         return is_bool($result) ? [] : $result;
+    }
+
+    /** Deletes the post of a particular user
+     * Used only for test purpose
+     */
+    public function deletePostByUserId(int $userId)
+    {
+        $stmt = $this->db->prepare('DELETE * from POSTS where user_id = ?');
+        $stmt->execute([$userId]);
     }
 
 }

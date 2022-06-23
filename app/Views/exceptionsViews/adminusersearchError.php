@@ -1,5 +1,4 @@
 <?php
-
 $this->params['code'] = 'No user exists with this user ID';
 $this->params['route'] = 'admin';
 $this->params['page'] = 'To Admin Panel';

@@ -7,53 +7,62 @@ namespace App\RouterConfigurations;
 use App\Interface\SafeRoute;
 use App\Exceptions\RouteNotFoundException;
 
-
+/**
+ * INSPIRED FROM GIO
+ */
 class Router
 {
     private array $routes = [];
 
-    public function register(string $requestMethod, string $route, callable|array $action): self
+    /**
+     * It stores get and post route with 'get' and 'post' keys respectively which contains name of route
+     * along with the classname and the method which needs to be triggered when the URL with related route name is called
+     * To visualise:
+     * $routes = [
+     * 'get'=> [
+     * 'route_name' => [ClassName, MethodInClass]
+     * ],
+     * 'post'=>[
+     * 'route_name' => [ClassName, MethodInClass]
+     * ]
+     */
+    public function register(string $requestMethod, string $route_name, array $action): self
     {
-        $this->routes[$requestMethod][$route] = $action;
+        $this->routes[$requestMethod][$route_name] = $action;
         return $this;
     }
 
-    public function get(string $route, callable|array $action): self
+    /** Puts the route name and action under get key in routes array */
+    public function get(string $route_name, array $action): self
     {
-        return $this->register('get', $route, $action);
+        return $this->register('get', $route_name, $action);
     }
 
-    public function post(string $route, callable|array $action): self
+    /** Stores the route name and action under post key in routes array */
+    public function post(string $route_name, array $action): self
     {
-        return $this->register('post', $route, $action);
+        return $this->register('post', $route_name, $action);
     }
 
     /**
      * @throws RouteNotFoundException
+     * On calling this method, it calls the particular function from the controller
      */
     public function resolve(string $requestUri, string $requestMethod)
     {
-        $route = explode('?', $requestUri)[0];
-        $action = $this->routes[$requestMethod][$route] ?? null;
-        if($action==null) {
+        $route_name = explode('?', $requestUri)[0];
+        $action = $this->routes[$requestMethod][$route_name] ?? null;
+        if ($action == null) {
             throw new RouteNotFoundException("This is an invalid route");
         }
-        if (is_callable($action)) {
-            return call_user_func($action);
-        }
-        if (is_array($action)) {
-            [$class, $method] = $action;
-
-            if (class_exists($class)) {
-                $class = new $class();
-                $this->checkSafeRoute($class);
-                if (method_exists($class, $method)) {
-                    return call_user_func_array([$class, $method], []);
-                }
-            }
-        }
+        $classObject = new $action[0]();
+        $method = $action[1];
+        /** Making sure post route is not accessed by users who are not logged in */
+        $this->checkSafeRoute($classObject);
+        return $classObject->$method();
     }
 
+    /** Checking whether user is logged in or not */
     private function checkSafeRoute($controller)
     {
         if ($controller instanceof SafeRoute) {
@@ -64,6 +73,9 @@ class Router
         }
     }
 
+    /**
+     * @return array
+     */
     public function routes(): array
     {
         return $this->routes;

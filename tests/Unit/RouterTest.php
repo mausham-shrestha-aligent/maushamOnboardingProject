@@ -13,7 +13,6 @@ class RouterTest extends TestCase
         parent::setUp();
         $this->router = new Router();
     }
-
     /** @test */
     public function test_to_check_if_registering_routes_work(): void
     {

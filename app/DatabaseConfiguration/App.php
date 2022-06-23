@@ -11,26 +11,33 @@ namespace App\DatabaseConfiguration {
     class App
     {
         private static DB $db;
-        private array $request;
 
+        /**
+         * Creates the instance of the DB class and passes config which is being passed from index.php
+         * @param Router $router
+         * @param Config $config
+         */
         public function __construct(protected Router $router, protected Config $config)
         {
-            $this->request = [
-                'uri' => $_SERVER['REQUEST_URI'],
-                'method' => $_SERVER['REQUEST_METHOD']
-            ];
             static::$db = new DB($config->db ?? []);
         }
 
+        /**
+         * returns the DB instance
+         * @return DB
+         */
         public static function db(): DB
         {
             return static::$db;
         }
 
+        /**
+         * @return void
+         */
         public function run()
         {
             try {
-                echo $this->router->resolve($this->request['uri'], strtolower($this->request['method']));
+                echo $this->router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
             } catch (RouteNotFoundException  $e) {
                 $params = [
                     'error' => $e->getMessage()

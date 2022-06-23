@@ -26,9 +26,9 @@ require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
                         <div class="mb-1 text-muted"><?= $post['postCreated'] ?></div>
                         <h6 class="mb-0"><?= $post['title'] ?></h6>
                         <hr>
-                        <p class="card-text mb-center">This is a wider card with supporting text below as a natural
-                            lead-in to additional content.</p>
-                        <a href="/singlepost?<?= $post['postId']?>" style="background-color: black">Continue reading</a>
+                        <p class="card-text mb-center">In order to comment on post, hit the button below</p>
+                        <a href="/singlepost?<?= $post['postId'] ?>" style="background-color: black">Continue
+                            reading</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                         <img class="bd-placeholder-img" width="200" height="250" src="<?= $post['imageUrl'] ?>"
@@ -82,8 +82,6 @@ require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
                 </table>
             </article>
 
-            <article class="blog-post">
-
         </div>
 
         <div class="col-md-4">
@@ -92,8 +90,10 @@ require_once ROOT_PATH . '/../app/Views/template/header.php'; ?>
                     <h4>Find me on</h4>
                     <ol class="list-unstyled">
                         <li><a href="https://github.com/mausham02" target="_blank" style="color: black">GitHub</a></li>
-                        <li><a href="https://twitter.com/mausham_01" target="_blank" style="color: black">Twitter</a></li>
-                        <li><a href="https://linkedin.com/in/mausham161" target="_blank" style="color: black">LinkedIn</a></li>
+                        <li><a href="https://twitter.com/mausham_01" target="_blank" style="color: black">Twitter</a>
+                        </li>
+                        <li><a href="https://linkedin.com/in/mausham161" target="_blank"
+                               style="color: black">LinkedIn</a></li>
                     </ol>
                 </div>
                 <div class="p-4 mb-3 bg-light rounded">

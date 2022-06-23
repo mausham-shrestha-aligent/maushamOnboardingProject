@@ -15,10 +15,7 @@
                         <h1>This user hasn't posted yet</h1>
                     </div>
                 <?php endif; ?>
-                <?php foreach ($posts
-
-                as $post): ?>
-
+                <?php foreach ($posts as $post): ?>
                 <div class="col-lg-4 col-md-6 py-2">
                     <div class="card single_post ">
                         <div class="body">

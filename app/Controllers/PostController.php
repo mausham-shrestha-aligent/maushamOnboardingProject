@@ -44,7 +44,9 @@ class PostController implements SafeRoute
             if(strlen($data['body']) == 0 || strlen($data['title'])==0) {
                 throw new EmptyTitleOrBodyException("Title or Body cannot be empty");
             } else {
-                $this->postModel->submitPost($data);
+                if($this->postModel->submitPost($data)) {
+                    header('location:' . 'http://localhost:8000/posts');
+                }
             }
         } catch (Exception $e) {
             $params = [
