@@ -89,6 +89,7 @@ class User extends Model
     {
         $stmt = $this->db->prepare('SELECT * from users');
         $stmt->execute();
+        
         return $stmt->fetchAll();
     }
 
@@ -140,6 +141,7 @@ class User extends Model
         //Deleting user
         $stmt = $this->db->prepare('DELETE FROM users where id = ?');
         $stmt->execute([$userId]);
+
         return true;
     }
 
@@ -149,6 +151,7 @@ class User extends Model
         $stmt = $this->db->prepare('SELECT * from deletedUsers');
         $stmt->execute();
         $results = $stmt->fetchAll();
+
         return is_bool($results) ? [] : $results;
     }
 

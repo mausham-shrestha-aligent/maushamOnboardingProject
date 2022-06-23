@@ -74,10 +74,7 @@ class Post extends Model
             'Select id, title, body, imageUrl from posts where id=?'
         );
         $stmt->execute([$postId]);
-
-
         $result = $stmt->fetch();
-
         return View::make('posts/edit', $result);
     }
 
