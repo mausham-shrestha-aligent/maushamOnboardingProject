@@ -48,6 +48,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/comments">Monitor Comments</a>
+                                <a class="dropdown-item" href="/admin">Admin Panel</a>
                                 <a class="dropdown-item" href="/posts">User Posts</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/admin#register_user">Register User</a>

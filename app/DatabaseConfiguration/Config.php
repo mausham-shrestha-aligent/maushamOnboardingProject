@@ -11,6 +11,10 @@ class Config
 {
     protected array $config = [];
 
+    /**
+     *
+     * @param array $env
+     */
     public function __construct(array $env)
     {
         $this->config = [

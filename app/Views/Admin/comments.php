@@ -21,27 +21,27 @@ if (sizeof($getRouteData) > 1) {
     <main role="main" class="container">
 
         <div class="my-3 p-3 bg-white rounded box-shadow">
-                <?php foreach ($this->params as $comment): ?>
-                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                        <strong class="d-block text-gray-dark">@<?php echo $userModel->getSearchedUser($comment['user_id'])['name'] ?></strong>
+            <?php foreach ($this->params as $comment): ?>
+                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                    <strong class="d-block text-gray-dark">@<?php echo $userModel->getSearchedUser($comment['user_id'])['name'] ?></strong>
 
-                        <?php echo $comment['comment'] ?>
-                    <div style="float: right">
-                        <form style="display: inline-block" action="/admin-comments-delete" method="post">
+                    <?php echo $comment['comment'] ?>
+                <div style="float: right">
+                    <form style="display: inline-block" action="/admin-comments-delete" method="post">
+                        <input type="hidden" name="commentId" value="<?php echo $comment['id'] ?>">
+                        <button>Delete comment</button>
+                    </form>
+                    <?php if ($comment['visible'] == 0): ?>
+                        <form style="display: inline-block" action="/admin-comments-approve" method="post">
                             <input type="hidden" name="commentId" value="<?php echo $comment['id'] ?>">
-                            <button>Delete comment</button>
+                            <button>Approve comment</button>
                         </form>
-                        <?php if ($comment['visible'] == 0): ?>
-                            <form style="display: inline-block" action="/admin-comments-approve" method="post">
-                                <input type="hidden" name="commentId" value="<?php echo $comment['id'] ?>">
-                                <button>Approve comment</button>
-                            </form>
-                        <?php endif; ?>
-                    </div>
+                    <?php endif; ?>
+                </div>
 
-                    </p>
+                </p>
 
-                <?php endforeach; ?>
+            <?php endforeach; ?>
         </div>
         </div>
     </main>

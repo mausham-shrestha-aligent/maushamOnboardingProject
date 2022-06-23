@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\EmptyTitleOrBodyException;
+use App\Interface\SafeRoute;
 use App\Models\Post;
 use App\Views\View;
 use Exception;
@@ -26,6 +28,9 @@ class PostController implements SafeRoute
         return View::make('posts/add');
     }
 
+    /**
+     * @throws Exception
+     */
     public function submitPost()
     {
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -35,7 +40,34 @@ class PostController implements SafeRoute
             'body' => trim($_POST['body']),
             'imageUrl' => trim($_POST['imageUrl'])
         ];
-        $this->postModel->submitPost($data);
+        try {
+            if(strlen($data['body']) == 0 || strlen($data['title'])==0) {
+                throw new EmptyTitleOrBodyException("Title or Body cannot be empty");
+            } else {
+                try {
+                    $postId = $this->postModel->submitPost($data);
+                    if(is_int($postId)) {
+                    header('location:' . 'http://localhost:8000/posts');
+                }
+                }
+                catch (Exception $e) {
+                    if ($this->db->inTransaction()) {
+                        $this->db->rollBack();
+                    }
+                    $params = [
+                        'error' => "Cannot post because the blog body has more than 75 characters"
+                    ];
+
+                    echo View::make('exceptionsViews/blogBodyLimitError', $params);
+                }
+
+            }
+        } catch (Exception $e) {
+            $params = [
+                'error' => $e->getMessage()
+            ];
+            echo View::make('exceptionsViews/blogBodyOrTitleError', $params);
+        }
     }
 
     public function editPost(): View
@@ -63,10 +95,20 @@ class PostController implements SafeRoute
 
     public function postComments()
     {
-        $postId = (int)$_POST['postId'];
-        $userId = (int)getUserId();
-        $comment = $_REQUEST['comment'];
-        $this->postModel->commentPost([$comment, $userId, $postId]);
+        try {
+            $postId = (int)$_POST['postId'];
+            $userId = (int)getUserId();
+            $comment = $_REQUEST['comment'];
+            $this->postModel->commentPost([$comment, $userId, $postId]);
+            header('location: ' . 'http://localhost:8000/');
+        }
+        catch (Exception $e) {
+            $params = [
+                'error' => $e->getMessage()
+            ];
+            echo View::make('exceptionsViews/commentLimitError', $params);
+        }
+
     }
 
     public function getSinglePosts(): View
