@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\RouterConfigurations\Router;
 use App\RouterConfigurations\RouterConfiguration;
+use http\Exception;
 use PHPUnit\Framework\TestCase;
 use Tests\DataProviders\DataProvider;
 
@@ -24,7 +25,6 @@ class ExceptionsTest extends TestCase
         parent::setUp();
         $this->baseTest = new BaseTest();
     }
-
     /**
      * @test
      * @dataProvider \Tests\DataProviders\DataProvider::routeNotFoundCases
@@ -57,7 +57,7 @@ class ExceptionsTest extends TestCase
     /** @test */
     public function it_throws_comment_limit_exception()
     {
-        $userId = $this->baseTest->helperCreateFunction();
+        $userId = $this->baseTest->helperCreateFunction('exceptionTest@test.com');
         $postId = $this->baseTest->helperPostCreateFunction($userId);
         $this->expectException(\Exception::class);
         try {
@@ -67,7 +67,7 @@ class ExceptionsTest extends TestCase
                 $postId
             ]);
         } catch (\Exception $e) {
-            $this->baseTest->helperDeleteFunction();
+            $this->baseTest->helperDeleteFunction('exceptionTest@test.com');
             throw new \Exception($e);
         }
     }
@@ -75,24 +75,13 @@ class ExceptionsTest extends TestCase
     /** @test */
     public function it_throws_exception_when_identical_user_is_added()
     {
-        $this->baseTest->helperCreateFunction();
+        $this->baseTest->helperCreateFunction('exceptionTest@test.com');
         $this->expectException(\Exception::class);
         try {
-            $this->baseTest->helperCreateFunction();
+            $userId=$this->baseTest->helperCreateFunction('exceptionTest@test.com');
         } catch (\Exception $e) {
+            $this->baseTest->helperDeleteFunction('exceptionTest@test.com');
             throw new \Exception($e);
         }
     }
-
-    /** @test */
-    public function it_throws_exception_if_email_field_is_empty_while_signup()
-    {
-        $this->expectException();
-        try {
-            $this->baseTest->getUserModel()->create("Test", "", "password", "");
-        } catch (\Exception $e) {
-            throw new \Exception($e);
-        }
-    }
-
 }

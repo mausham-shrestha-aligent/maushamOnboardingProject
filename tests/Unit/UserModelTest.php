@@ -23,16 +23,15 @@ class UserModelTest extends TestCase
      */
     public function test_that_if_create_user_works()
     {
-        $this->baseTest->helperCreateFunction();
-        $this->assertSame(true, $this->baseTest->getUserModel()->findUserByEmail('unit1@test.com'));
-        /** Removing the random user email from database **/
-        $this->baseTest->helperDeleteFunction();
+        $this->baseTest->helperCreateFunction("usermodeltest@email.com");
+        $this->assertSame(true, $this->baseTest->getUserModel()->findUserByEmail("usermodeltest@email.com"));
+        $this->baseTest->helperDeleteFunction("usermodeltest@email.com");
     }
 
     public function test_that_if_check_password_works()
     {
-        $this->baseTest->helperCreateFunction();
-        $this->assertSame(7, count($this->baseTest->getUserModel()->checkPassword($this->sampleEmail, '12345')));
-        $this->baseTest->helperDeleteFunction();
+        $this->baseTest->helperCreateFunction("usermodeltest@email.com");
+        $this->assertSame(7, count($this->baseTest->getUserModel()->checkPassword("usermodeltest@email.com", '12345')));
+        $this->baseTest->helperDeleteFunction("usermodeltest@email.com");
     }
 }

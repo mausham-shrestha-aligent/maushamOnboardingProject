@@ -236,8 +236,9 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
      */
     public function deletePostByUserId(int $userId)
     {
-        $stmt = $this->db->prepare('DELETE * from POSTS where user_id = ?');
+        $stmt = $this->db->prepare('DELETE from posts where user_id = ?');
         $stmt->execute([$userId]);
+        return $stmt->fetch();
     }
 
 }

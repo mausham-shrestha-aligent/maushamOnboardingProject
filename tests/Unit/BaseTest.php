@@ -27,20 +27,20 @@ class BaseTest
         $this->postModel = new Post();
         $this->userModel = new User();
         $this->router = new Router();
-        $this->sampleEmail = "sample14@sample.com";
+        $this->sampleEmail = "sample15@sample.com";
     }
 
     /** Helps to create new user */
-    public function helperCreateFunction()
+    public function helperCreateFunction($userEmail)
     {
         return $this->userModel->create('Unit Test User',
-            $this->sampleEmail, '12345', '');
+            $userEmail, '12345', '');
     }
 
     /** Helps to delete user */
-    public function helperDeleteFunction()
+    public function helperDeleteFunction($email)
     {
-        $this->userModel->deleteUserByEmail($this->sampleEmail);
+        $this->userModel->deleteUserByEmail($email);
     }
 
     /** Helps to create a new post */

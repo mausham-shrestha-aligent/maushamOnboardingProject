@@ -53,12 +53,6 @@ class RouterTest extends TestCase
     public function test_that_there_are_no_routes_when_router_is_created(): void {
         $this->assertEmpty((new Router())->routes());
     }
-
-    public function test_that_it_resolves_route_from_a_closure(): void {
-        $this->router->get('/users',fn()=>[1,2,3,4,5]);
-        $this->assertSame([1,2,3,4,5], $this->router->resolve('/users', 'get'));
-    }
-
     /**
      * @throws RouteNotFoundException
      */
