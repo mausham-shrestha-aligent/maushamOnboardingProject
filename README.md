@@ -48,7 +48,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 * [BOOTSTRAP](https://getbootstrap.com/)
 * [DOCKER](https://www.docker.com/)
-* [Nginx](https://www.nginx.com/))
+* [Nginx](https://www.nginx.com/)
 * [Bootstrap](https://getbootstrap.com)
 * [MYSQL](https://www.mysql.com/)
 
