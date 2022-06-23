@@ -8,7 +8,7 @@ use JetBrains\PhpStorm\Pure;
 abstract class Model {
     public \App\DatabaseConfiguration\DB $db;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->db = App::db();
     }
