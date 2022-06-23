@@ -30,7 +30,6 @@ class User extends Model
         $stmt = $this->db->prepare(
             'Insert into users(name, email, password,userProfilePic) Values (?, ? ,?, ?)'
         );
-
         $stmt->execute([$name, $email, $password, $userProfilePic]);
 
         return (int)$this->db->lastInsertId();
@@ -57,7 +56,6 @@ class User extends Model
     public function findUserByEmail(string $email): bool
     {
         $stmt = $this->db->prepare('SELECT * FROM users WHERE email = ?');
-
         $stmt->execute([$email]);
         $row = $stmt->rowCount();
 
