@@ -41,7 +41,6 @@ In the blog website there are three kinds of users
 
 ### Tools Used
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 * [PHP](https://www.php.net/)
 * [HTML](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics#:~:text=HTML%20(HyperText%20Markup%20Language)%20is,using%20images%20and%20data%20tables.)
