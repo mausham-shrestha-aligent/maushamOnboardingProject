@@ -44,7 +44,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="/admin" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa-solid fa-screwdriver-wrench"></i>
-                                Admin
+                                Tools
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/comments">Monitor Comments</a>
@@ -57,7 +57,7 @@
                     <?php endif?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>
+                            <?php echo getCurrentUserName() ?> &nbsp; <i class="fa-solid fa-user"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/logout">Logout</a>

@@ -31,7 +31,7 @@ function isAdmin(): bool
     return $_SESSION['user']['accessLevel'] == \App\Models\User::ACCESS_LEVEL_ADMIN;
 }
 /** helps get the username of the user who is logged in */
-function getUserName()
+function getCurrentUserName()
 {
     return $_SESSION['user']['name'];
 }
