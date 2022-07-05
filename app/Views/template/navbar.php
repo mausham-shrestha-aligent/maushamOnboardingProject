@@ -26,7 +26,7 @@
         <div/>
         <div style="float: right; margin-right: 100px">
             <ul class="navbar-nav">
-                <?php if (!getUserId()) : ?>
+                <?php if (!getCurrentUserId()) : ?>
                     <li class="nav-item active">
                         <a class="nav-link" href="/register">
                             <i class="fa-solid fa-address-card"></i>

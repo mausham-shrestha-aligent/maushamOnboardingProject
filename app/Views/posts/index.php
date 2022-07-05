@@ -25,7 +25,7 @@
 
                         ">
                         <img style="width: 300px;height: 300px;" src="<?= $post['imageUrl'] ?>" alt="Awesome Image">
-                        <?php if (getUserId() == $post['user_id'] || isAdmin()): ?>
+                        <?php if (getCurrentUserId() == $post['user_id'] || isAdmin()): ?>
                             <div><p><?= $post['body'] ?></p></div>
                             <form action="/posts/delete" method="POST">
                                 <input type="hidden" name="post" value=<?= $post['id'] ?>>
@@ -82,7 +82,7 @@
                         ">
                         <img style="width: 300px;height: 300px;" src="<?= $post['imageUrl'] ?>" alt="Awesome Image">
                         <form action="/posts/delete" method="POST">
-                            <?php if (getUserId() == $post['id'] || isAdmin()): ?>
+                            <?php if (getCurrentUserId() == $post['id'] || isAdmin()): ?>
                                 <div><p><?= $post['body'] ?></p></div>
                                 <input type="hidden" name="post" value=<?= $post['postId'] ?>>
 

@@ -69,7 +69,7 @@ class User extends Model
      * @return mixed
      * @throws PasswordIncorrectException
      */
-    public function checkPassword(string $email, string $password)
+    public function checkPassword(string $email, string $password): mixed
     {
         $stmt = $this->db->prepare('SELECT * from users where email = ?');
         $stmt->execute([$email]);
@@ -146,7 +146,7 @@ class User extends Model
     }
 
     // Getting the deleted users to be displayed in the admin page
-    public function getDeletedUsers()
+    public function getDeletedUsers(): bool|array
     {
         $stmt = $this->db->prepare('SELECT * from deletedUsers');
         $stmt->execute();

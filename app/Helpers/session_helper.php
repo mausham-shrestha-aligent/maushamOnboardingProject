@@ -11,7 +11,7 @@ function isLoggedIn()
     return isset($_SESSION['user']);
 }
 /** Gets the user id of the user who is logged in  */
-function getUserId()
+function getCurrentUserId()
 {
     if (sizeof($_SESSION) > 0) {
         if ($_SESSION['user'] != null) {

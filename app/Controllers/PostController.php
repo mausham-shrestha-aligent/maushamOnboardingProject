@@ -7,12 +7,13 @@ use App\Interface\SafeRoute;
 use App\Models\Post;
 use App\Views\View;
 use Exception;
+use JetBrains\PhpStorm\Pure;
 
 class PostController implements SafeRoute
 {
     protected Post $postModel;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->postModel = new Post();
     }
@@ -35,7 +36,7 @@ class PostController implements SafeRoute
     {
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $data = [
-            'user_id' => getUserId(),
+            'user_id' => getCurrentUserId(),
             'title' => trim($_POST['title']),
             'body' => trim($_POST['body']),
             'imageUrl' => trim($_POST['imageUrl'])
@@ -51,9 +52,6 @@ class PostController implements SafeRoute
                 }
                 }
                 catch (Exception $e) {
-                    if ($this->db->inTransaction()) {
-                        $this->db->rollBack();
-                    }
                     $params = [
                         'error' => "Cannot post because the blog body has more than 75 characters"
                     ];
@@ -97,7 +95,7 @@ class PostController implements SafeRoute
     {
         try {
             $postId = (int)$_POST['postId'];
-            $userId = (int)getUserId();
+            $userId = (int)getCurrentUserId();
             $comment = $_REQUEST['comment'];
             $this->postModel->commentPost([$comment, $userId, $postId]);
             header('location: ' . 'http://localhost:8000/');

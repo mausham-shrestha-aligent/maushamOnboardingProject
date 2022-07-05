@@ -11,7 +11,7 @@ class Post extends Model
      * Helps get all the post
      * @return array|false
      */
-    public function getPosts()
+    public function getPosts(): bool|array
     {
         $stmt = $this->db->prepare(
             'SELECT * , posts.id as postId, users.id as userId,
@@ -30,7 +30,7 @@ class Post extends Model
      * Submit the new post.. If failed throws Exception
      * @throws Exception
      */
-    public function submitPost(array $data)
+    public function submitPost(array $data): int
     {
             $stmt = $this->db->prepare(
                 'Insert into posts(user_id, title, body,imageUrl) values (?, ?, ?,?)'
@@ -117,7 +117,7 @@ class Post extends Model
      * @param $postId
      * @return mixed
      */
-    public function getSinglePosts($postId)
+    public function getSinglePosts($postId): mixed
     {
         $stmt = $this->db->prepare(
             'select posts.id as postId, users.id as userId,
@@ -133,14 +133,14 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
      * @param $postId
      * @return array|false
      */
-    public function getCommentPosts($postId)
+    public function getCommentPosts($postId): bool|array
     {
         $stmt = $this->db->prepare(
             'Select * from comments inner join users on users.id = comments.user_id where post_id = ?'
         );
         $stmt->execute([$postId]);
         $results = $stmt->fetchAll();
-        return $results = is_bool($results) ? [] : $results;
+        return is_bool($results) ? [] : $results;
     }
 
     /**
@@ -153,7 +153,7 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
         $stmt = $this->db->prepare('SELECT user_id from posts where id=?');
         $stmt->execute([$postId]);
         $userId = $stmt->fetch()['user_id'];
-        if (!isAdmin() && $userId != getUserId()) {
+        if (!isAdmin() && $userId != getCurrentUserId()) {
             return true;
         } else {
             return false;
@@ -223,22 +223,11 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
     }
 
     /** Get all the deleted comments */
-    public function getDeletedComments()
+    public function getDeletedComments(): bool|array
     {
         $stmt = $this->db->prepare('SELECT * from deletedComments');
         $stmt->execute();
         $result = $stmt->fetchAll();
         return is_bool($result) ? [] : $result;
     }
-
-    /** Deletes the post of a particular user
-     * Used only for test purpose
-     */
-    public function deletePostByUserId(int $userId)
-    {
-        $stmt = $this->db->prepare('DELETE from posts where user_id = ?');
-        $stmt->execute([$userId]);
-        return $stmt->fetch();
-    }
-
 }

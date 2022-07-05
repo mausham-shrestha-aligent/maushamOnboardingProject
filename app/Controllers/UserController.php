@@ -11,6 +11,7 @@ use App\Models\Model;
 use App\Models\User;
 use App\Views\View;
 use Exception;
+use JetBrains\PhpStorm\Pure;
 use Throwable;
 
 class UserController extends Model
@@ -20,7 +21,7 @@ class UserController extends Model
      */
     protected User $userModel;
 
-    public function __construct()
+    #[Pure] public function __construct()
     {
         $this->userModel = new User();
         parent::__construct();
