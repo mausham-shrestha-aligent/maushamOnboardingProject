@@ -25,6 +25,7 @@ create table comments (
     comment varchar(50),
     user_id int not null,
     post_id int not null,
+    visible int,
     FOREIGN KEY (user_id) references users(id) on delete cascade,
     FOREIGN KEY (post_id) references posts(id) on delete cascade
 );
