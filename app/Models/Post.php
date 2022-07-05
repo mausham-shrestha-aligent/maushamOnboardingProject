@@ -51,7 +51,7 @@ class Post extends Model
             throw new Exception('Cannot Delete post');
         }
 
-        $_stmt = $this->db->prepare('insert into deletePosts select * from posts where id = ?');
+        $_stmt = $this->db->prepare('insert into deletedPosts select * from posts where id = ?');
         $_stmt->execute([$postId]);
         $__stmt = $this->db->prepare('insert into deletedComments select * from comments where post_id = ?');
         $__stmt->execute([$postId]);
@@ -216,7 +216,7 @@ from posts inner join users on posts.user_id = users.id where posts.id = ?'
     /** gets all the deleted posts */
     public function getDeletedPosts(): bool|array
     {
-        $stmt = $this->db->prepare('SELECT * from deletePosts');
+        $stmt = $this->db->prepare('SELECT * from deletedPosts');
         $stmt->execute();
         $result = $stmt->fetchAll();
         return is_bool($result) ? [] : $result;

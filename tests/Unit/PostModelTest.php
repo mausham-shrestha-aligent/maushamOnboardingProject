@@ -26,26 +26,16 @@ class PostModelTest extends TestCase
         $this->assertIsArray($this->baseTest->getPostModel()->getPosts());
     }
 
-//    public function test_if_submitPost_works()
-//    {
-//        $userId = $this->baseTest->helperCreateFunction('postmodeltest3@test.com');
-//        /** Making sure that the exception is not thrown meaning the post has been inserted */
-//        $this->expectNotToPerformAssertions();
-//        $this->baseTest->helperPostCreateFunction($userId);
-//
-//        /** Deletes the user along with the post created in this function */
-//        $this->baseTest->helperDeleteFunction();
-//    }
-//
-//    /** This function first adds the new user and get the userID and create a post and then deletes it */
-//    public function test_if_post_can_be_deleted()
-//    {
-//        $userId = $this->baseTest->helperCreateFunction('postmodeltest5@test.com');
-//        $this->baseTest->helperPostCreateFunction($userId);
-//
-//        $result = $this->baseTest->getPostModel()->deletePostByUserId($userId);
-//        $this->assertEquals(1, $result);
-//    }
+    public function test_if_submitPost_works()
+    {
+        $userId = $this->baseTest->helperCreateFunction('postmodeltest4@test.com');
+        /** Making sure that the exception is not thrown meaning the post has been inserted */
+        $this->expectNotToPerformAssertions();
+        $this->baseTest->helperPostCreateFunction($userId);
+
+        /** Deletes the user along with the post created in this function */
+        $this->baseTest->helperDeleteFunction('postmodeltest4@test.com');
+    }
 
 
 }

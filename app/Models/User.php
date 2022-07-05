@@ -133,7 +133,7 @@ class User extends Model
                                         SELECT id, name, email, password, accessLevel, userProfilePic, Now() FROM users where id = ?');
         $_stmt->execute([$userId]);
         //Preserving post from deleted users
-        $__stmt = $this->db->prepare('INSERT INTO deletePosts SELECT * from posts where user_id = ?');
+        $__stmt = $this->db->prepare('INSERT INTO deletedPosts SELECT * from posts where user_id = ?');
         $__stmt->execute([$userId]);
         //Preserving comments from deleted users
         $___stmt = $this->db->prepare('INSERT INTO deletedComments SELECT * FROM comments where user_id = ?');
