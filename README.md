@@ -56,7 +56,7 @@ Getting started tips
 * For testing 
     * Enter inside the docker container using command "docker exec -it CONTAINER_NAME bash
     * Run ./vendor/bin/phpunit
-* Use the database dump provided. 
+* Use the database dump provided. (DatabaseDump.zip)
   Note: The user password is the frontname of email. 
         For example: test@gmail.com has password of 'test'
 
