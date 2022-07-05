@@ -45,7 +45,7 @@ create table deletedComments(
     visible int
 );
 
-create table deleteUsers(
+create table deletedUsers(
     id int,
     name varchar(50),
     email varchar(255),
