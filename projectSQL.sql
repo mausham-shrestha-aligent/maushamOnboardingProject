@@ -30,13 +30,6 @@ create table comments (
     FOREIGN KEY (post_id) references posts(id) on delete cascade
 );
 
-create table likes (
-    user_id int not null,
-    post_id int not null,
-    PRIMARY KEY (user_id, post_id),
-    FOREIGN KEY (user_id) references users(id) on delete cascade,
-    FOREIGN KEY (post_id) references posts(id) on delete cascade
-);
 
 create table deletedComments(
     id int,
