@@ -24,10 +24,6 @@ $post = $postModel->getSinglePosts(explode('?', $_SERVER['REQUEST_URI'])[1]);
                         <div class="d-flex flex-row fs-12">
                             <?php $id = strval($post['postId']) ?>
                             <div class="like p-2 cursor">
-                                <button class="btn btn-primary pull-right"><i class="fa fa-thumbs-o-up"></i><span
-                                            class="ml-1"> Like</span></button>
-                            </div>
-                            <div class="like p-2 cursor">
                                 <button onclick="showCommentSection(<?= $id ?>)" class="btn btn-primary pull-right">
                                     <i
                                             class="fa fa-commenting-o"></i><span class="ml-1"> Comment</span>
