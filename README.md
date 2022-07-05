@@ -53,6 +53,10 @@ In the blog website there are three kinds of users
 
 Getting started tips 
 * Create the database and create table using sql file provided : projectSQL.sql
+* For testing 
+    * Enter inside the docker container using command "docker exec -it CONTAINER_NAME bash
+    * Run ./vendor/bin/phpunit
+
 
   
 
